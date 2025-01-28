@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.31.1)
 set(CMAKE_CXX_STANDARD 20)
 set(DDENGINE_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-project(ddengine)
+project(ddengine CXX)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug")
@@ -21,3 +21,14 @@ endif()
 if(DDENGINE_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
+
+############### Dependencies ###############
+
+# GLFW Options
+set(GLFW_BUILD_TESTS OFF)
+set(GLFW_BUILD_EXAMPLES OFF)
+set(GLFW_BUILD_DOCS OFF)
+set(GLFW_INSTALL OFF)
+
+add_subdirectory(deps/glfw)
+add_subdirectory(deps/glad)
