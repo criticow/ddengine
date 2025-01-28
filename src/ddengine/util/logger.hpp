@@ -1,11 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <format>
-#include <string>
-#include <ostream>
+#include <ddenginepch.hpp>
 
 /*
   - Logs the first argument normally if only one argument is provided
