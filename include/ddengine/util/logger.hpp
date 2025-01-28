@@ -7,6 +7,12 @@
 #include <string>
 #include <ostream>
 
+/*
+  - Logs the first argument normally if only one argument is provided
+  - Replaces {} sequentially like in std::format: LOGGER_TYPE("{}, {}, {}", 0, 1, 2);
+  - Replaces {0}, {1}, {2}... for the appropriate arguments: LOGGER_TYPE("{0}, {1}, {2}", 0, 1, 2);
+*/
+
 namespace ddengine
 {
   class Logger

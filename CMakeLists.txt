@@ -12,7 +12,12 @@ endif()
 add_subdirectory(src)
 
 option(DDENGINE_BUILD_TESTS "Build ddengine tests" ON)
+option(DDENGINE_BUILD_EXAMPLES "Build ddengine examples" ON)
 
 if(DDENGINE_BUILD_TESTS)
   add_subdirectory(tests)
+endif()
+
+if(DDENGINE_BUILD_EXAMPLES)
+  add_subdirectory(examples)
 endif()
