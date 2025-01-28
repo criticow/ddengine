@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.31.1)
+
+set(CMAKE_CXX_STANDARD 20)
+set(DDENGINE_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+
+project(ddengine)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
+add_subdirectory(src)
+
+option(DDENGINE_BUILD_TESTS "Build ddengine tests" ON)
+
+if(DDENGINE_BUILD_TESTS)
+  add_subdirectory(tests)
+endif()
