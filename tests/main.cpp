@@ -2,6 +2,4 @@
 
 int main()
 {
-  ddengine::Logger logger;
-  logger.log("Hello world!");
 }
