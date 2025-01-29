@@ -1,4 +1,4 @@
-#include <ddengine/util/logger.hpp>
+#include <ddengine/ddengine.hpp>
 
 int main()
 {

@@ -1,4 +1,4 @@
 link_libraries(ddengine)
 
-file(GLOB_RECURSE logger_source "logger/*.cpp" "logger/*.hpp")
-add_executable(logger ${logger_source})
+add_executable(logger logger.cpp)
+add_executable(window window.cpp)
