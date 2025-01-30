@@ -33,15 +33,5 @@ set(GLFW_INSTALL OFF)
 add_subdirectory(deps/glfw)
 add_subdirectory(deps/glad)
 
-# Run the JS file using Node.js during configuration
-execute_process(
-  COMMAND node ${CMAKE_SOURCE_DIR}/scripts/headers.js
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  RESULT_VARIABLE JS_RESULT
-  OUTPUT_VARIABLE JS_OUTPUT
-  ERROR_VARIABLE JS_ERROR
-)
-
-# Print results in CMake output
-message(STATUS "JavaScript Output: ${JS_OUTPUT}")
-message(STATUS "JavaScript Error: ${JS_ERROR}")
+# Script to generate general output header files
+execute_process(COMMAND node ${CMAKE_SOURCE_DIR}/scripts/headers.js)

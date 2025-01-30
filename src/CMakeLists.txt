@@ -16,5 +16,5 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 # Include dependencies
 target_include_directories(ddengine PUBLIC
   $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/src>
-  $<BUILD_INTERFACE:${NGNIA_ROOT_DIR}/deps/glm>
+  $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/deps/glm>
 )
