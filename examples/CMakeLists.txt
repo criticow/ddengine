@@ -1,4 +1,11 @@
 link_libraries(ddengine)
 
-add_executable(logger logger.cpp)
-add_executable(window window.cpp)
+set(EXAMPLES
+  logger_example
+  window_example
+  input_example
+)
+
+foreach(EXAMPLE ${EXAMPLES})
+  add_executable(${EXAMPLE} "${EXAMPLE}.cpp")
+endforeach()

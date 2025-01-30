@@ -9,6 +9,8 @@
 #include <cstdio>
 #include <mutex>
 #include <filesystem>
+#include <vector>
+#include <unordered_map>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
