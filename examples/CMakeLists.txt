@@ -5,6 +5,7 @@ set(EXAMPLES
   window_example
   input_example
   temporizer_example
+  engine_example
 )
 
 foreach(EXAMPLE ${EXAMPLES})
