@@ -15,9 +15,9 @@ class Renderer
   Renderer() : instancesCount(0), size(0), stride(0), drawMode(GL_TRIANGLES) {}
 
   void render(glm::mat4 projection);
-  void setup(ResourceManager &resourceManager);
+  void setup();
 
-  virtual void onSetup(ResourceManager &resourceManager){};
+  virtual void onSetup(){};
   virtual void onRender(glm::mat4 projection){};
 
   std::vector<T> instancesData;
@@ -36,7 +36,7 @@ class Renderer
 };
 
 template <typename T>
-inline void Renderer<T>::setup(ResourceManager &resourceManager)
+inline void Renderer<T>::setup()
 {
   glGenVertexArrays(1, &VAO);
   glBindVertexArray(VAO);
@@ -58,7 +58,7 @@ inline void Renderer<T>::setup(ResourceManager &resourceManager)
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, SSBO);
 
   // Call the derived setup function
-  this->onSetup(resourceManager);
+  this->onSetup();
 }
 
 template <typename T>

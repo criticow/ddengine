@@ -1,5 +1,7 @@
 #include "line_renderer.hpp"
 
+#include <ddengine/core/engine.hpp>
+
 LineRenderer::LineRenderer()
 {
   this->size = 1;
@@ -15,7 +17,7 @@ LineRenderer::LineRenderer()
   };
 };
 
-void LineRenderer::onSetup(ResourceManager &resourceManager)
+void LineRenderer::onSetup()
 {
   const char *vShaderData = R"(
     #version 460 core
@@ -60,7 +62,7 @@ void LineRenderer::onSetup(ResourceManager &resourceManager)
     }
   )";
 
-  this->shader = resourceManager.setShader("line_default", vShaderData, fShaderData);
+  this->shader = Engine::resourceManager.setShader("line_default", vShaderData, fShaderData);
 };
 
 void LineRenderer::onRender(glm::mat4 projection)

@@ -15,7 +15,7 @@ class LineRenderer : public Renderer<LineInstanceData>
 {
   public:
   LineRenderer();
-  void onSetup(ResourceManager &resourceManager) override;
+  void onSetup() override;
   void onRender(glm::mat4 projection) override;
   Shader *shader = nullptr;
 };

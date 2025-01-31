@@ -30,8 +30,16 @@ set(GLFW_BUILD_EXAMPLES OFF)
 set(GLFW_BUILD_DOCS OFF)
 set(GLFW_INSTALL OFF)
 
+# Freetype Options
+set(FT_DISABLE_ZLIB ON)
+set(FT_DISABLE_BZIP2 ON)
+set(FT_DISABLE_PNG ON)
+set(FT_DISABLE_BROTLI ON)
+set(FT_DISABLE_HARFBUZZ ON)
+
 add_subdirectory(deps/glfw)
 add_subdirectory(deps/glad)
+add_subdirectory(deps/freetype)
 
 # Script to generate general output header files
 execute_process(COMMAND node ${CMAKE_SOURCE_DIR}/scripts/headers.js)

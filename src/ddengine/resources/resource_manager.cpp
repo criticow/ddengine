@@ -75,3 +75,32 @@ std::vector<Texture> ResourceManager::getTextures()
 
   return texturesStored;
 }
+
+Font* ResourceManager::getFont(const std::string &name)
+{
+  ASSERT(this->hasResource<Font>(name), "Font with name {} not found!", name);
+  return &this->fonts.at(name);
+}
+
+Font* ResourceManager::setFont(const std::string &name, const std::string &path, unsigned int size, bool pixelated)
+{
+  return this->setFont(name, Font(name, path, size, pixelated));
+}
+
+Font* ResourceManager::setFont(const std::string &name, Font font)
+{
+  auto [it, inserted] = this->fonts.emplace(name, font);
+  return &it->second;
+}
+
+std::vector<Font> ResourceManager::getFonts()
+{
+  std::vector<Font> fontsStored;
+
+  for(auto &[key, value] : ResourceManager::fonts)
+  {
+    fontsStored.push_back(value);
+  }
+
+  return fontsStored;
+}

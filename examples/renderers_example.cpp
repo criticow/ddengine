@@ -1,7 +1,7 @@
 #include <ddengine/ddengine.hpp>
 
-QuadRenderer quadRenderer;
-LineRenderer lineRenderer;
+QuadRenderer exampleQuadRenderer;
+LineRenderer exampleLineRenderer;
 
 std::pair<glm::vec4, glm::vec4> getTexCoords(glm::vec4 dimensions, float texWidth, float texHeight, bool flipX, bool flipY)
 {
@@ -63,7 +63,7 @@ class Application : public Engine
       frameIndex++;
       if(frameIndex == frames.size()) frameIndex = 0;
 
-      for(auto &data : quadRenderer.instancesData)
+      for(auto &data : exampleQuadRenderer.instancesData)
       {
         auto texture = resourceManager.getTexture("cadet");
 
@@ -78,8 +78,8 @@ class Application : public Engine
   void onSetup() override {
     auto texture = resourceManager.setTexture("cadet", "data/textures/cadet.png");
 
-    quadRenderer.setup(this->resourceManager);
-    lineRenderer.setup(this->resourceManager);
+    exampleQuadRenderer.setup();
+    exampleLineRenderer.setup();
 
     for(size_t i = 0; i < 8; i++)
     {
@@ -105,7 +105,7 @@ class Application : public Engine
         data.texCoords1 = texCoords.first;
         data.texCoords2 = texCoords.second;
 
-        quadRenderer.instancesData.push_back(data);
+        exampleQuadRenderer.instancesData.push_back(data);
       }
     }
 
@@ -118,8 +118,8 @@ class Application : public Engine
 
       glm::vec4 greenColor(0.0f, 1.0f, 0.0f, 0.125f);
 
-      lineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * offset), glm::vec2(window.resolutionWidth, window.resolutionHeight * offset), greenColor);
-      lineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * offset, 0.0f), glm::vec2(window.resolutionWidth * offset, window.resolutionHeight), greenColor);
+      exampleLineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * offset), glm::vec2(window.resolutionWidth, window.resolutionHeight * offset), greenColor);
+      exampleLineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * offset, 0.0f), glm::vec2(window.resolutionWidth * offset, window.resolutionHeight), greenColor);
     }
 
     // Blue lines
@@ -131,18 +131,18 @@ class Application : public Engine
 
       glm::vec4 greenColor(0.0f, 0.0f, 1.0f, 0.25f);
 
-      lineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * offset), glm::vec2(window.resolutionWidth, window.resolutionHeight * offset), greenColor);
-      lineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * offset, 0.0f), glm::vec2(window.resolutionWidth * offset, window.resolutionHeight), greenColor);
+      exampleLineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * offset), glm::vec2(window.resolutionWidth, window.resolutionHeight * offset), greenColor);
+      exampleLineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * offset, 0.0f), glm::vec2(window.resolutionWidth * offset, window.resolutionHeight), greenColor);
     }
 
     // White lines
-    lineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * 0.5f, 0.0f), glm::vec2(window.resolutionWidth * 0.5f, window.resolutionHeight), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
-    lineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * 0.5f), glm::vec2(window.resolutionWidth, window.resolutionHeight * 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
+    exampleLineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * 0.5f, 0.0f), glm::vec2(window.resolutionWidth * 0.5f, window.resolutionHeight), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
+    exampleLineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * 0.5f), glm::vec2(window.resolutionWidth, window.resolutionHeight * 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
   };
   void onRender() override {
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window.resolutionWidth), static_cast<float>(window.resolutionHeight), 0.0f, -1.0f, 1.0f);
-    lineRenderer.render(projection);
-    quadRenderer.render(projection);
+    exampleLineRenderer.render(projection);
+    exampleQuadRenderer.render(projection);
   };
 };
 

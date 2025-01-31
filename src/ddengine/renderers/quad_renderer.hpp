@@ -4,8 +4,6 @@
 
 #include <ddengine/renderers/renderer.hpp>
 
-class Engine;
-
 struct QuadInstanceData
 {
   // C++ and shader usage
@@ -26,7 +24,7 @@ class QuadRenderer : public Renderer<QuadInstanceData>
 {
   public:
   QuadRenderer();
-  void onSetup(ResourceManager &resourceManager) override;
+  void onSetup() override;
   void onRender(glm::mat4 projection) override;
   Shader *shader = nullptr;
 };

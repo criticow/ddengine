@@ -21,7 +21,7 @@ QuadRenderer::QuadRenderer()
   };
 };
 
-void QuadRenderer::onSetup(ResourceManager &resourceManager)
+void QuadRenderer::onSetup()
 {
   const char* vShaderData = R"(
     #version 460 core
@@ -109,7 +109,7 @@ void QuadRenderer::onSetup(ResourceManager &resourceManager)
     }
   )";
 
-  this->shader = resourceManager.setShader("quad_default", vShaderData, fShaderData);
+  this->shader = Engine::resourceManager.setShader("quad_default", vShaderData, fShaderData);
 };
 
 void QuadRenderer::onRender(glm::mat4 projection)

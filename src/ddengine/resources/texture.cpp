@@ -33,7 +33,7 @@ Texture::Texture(const std::string &path, int index)
   stbi_image_free(data);
 }
 
-Texture::Texture(int width, int height, unsigned char *buffer)
+Texture::Texture(int width, int height, unsigned char *buffer, bool pixelated)
 {
   this->width = width;
   this->height = height;
@@ -45,8 +45,8 @@ Texture::Texture(int width, int height, unsigned char *buffer)
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, pixelated ? GL_NEAREST : GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, pixelated ? GL_NEAREST : GL_LINEAR);
 
   glBindTexture(GL_TEXTURE_2D, 0);
 }
