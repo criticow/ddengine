@@ -65,7 +65,7 @@ void Shader::setMatrix(const std::string &name, glm::mat4 value)
 
 void Shader::setArray(const std::string &name, std::vector<glm::vec2> value)
 {
-  glUniform2fv(this->getLocation(name), value.size(), &value[0][0]);
+  glUniform2fv(this->getLocation(name), static_cast<GLuint>(value.size()), &value[0][0]);
 }
 
 GLint Shader::getLocation(const std::string &name)
