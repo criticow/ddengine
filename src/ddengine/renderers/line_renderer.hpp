@@ -1,0 +1,21 @@
+#pragma once
+
+#include <ddenginepch.hpp>
+
+#include <ddengine/renderers/renderer.hpp>
+
+struct LineInstanceData
+{
+  glm::vec2 start;   // 8 bytes
+  glm::vec2 end;     // 8 bytes
+  glm::vec4 color;   // 16 bytes
+};
+
+class LineRenderer : public Renderer<LineInstanceData>
+{
+  public:
+  LineRenderer();
+  void onSetup(ResourceManager &resourceManager) override;
+  void onRender(glm::mat4 projection) override;
+  Shader *shader = nullptr;
+};

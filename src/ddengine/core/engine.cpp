@@ -3,6 +3,7 @@
 Window Engine::window;
 Temporizer Engine::tempo;
 Input Engine::input;
+ResourceManager Engine::resourceManager;
 
 Engine::Engine(int width, int height, int resWidth, int resHeight, const char *title)
 {

@@ -5,6 +5,7 @@
 #include <ddengine/core/window.hpp>
 #include <ddengine/core/temporizer.hpp>
 #include <ddengine/core/input.hpp>
+#include <ddengine/resources/resource_manager.hpp>
 
 class Engine
 {
@@ -13,6 +14,7 @@ class Engine
   static Window window;
   static Temporizer tempo;
   static Input input;
+  static ResourceManager resourceManager;
 
   void run();
 
