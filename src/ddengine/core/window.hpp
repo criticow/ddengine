@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ddenginepch.hpp>
-#include <ddengine/util/logger.hpp>
 
 struct Mouse
 {
