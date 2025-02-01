@@ -58,7 +58,7 @@ class Game : public Engine
       quadData.layer = 0;
       quadData.isText = false;
       quadData.textureID = -1;
-      quadData.color = glm::vec4(1.0f, 0.0f, 0.0f, 0.25f);
+      quadData.color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
       quadData.strokeColor = glm::vec4(0.0f);
       quadRenderer.instancesData.push_back(quadData);
     }
@@ -66,3 +66,9 @@ class Game : public Engine
   };
   void onRender() override {};
 };
+
+int main()
+{
+  Game game(1280, 720, 1280, 720, "ParentChild");
+  game.run();
+}

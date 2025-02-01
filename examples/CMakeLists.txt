@@ -9,6 +9,7 @@ set(EXAMPLES
   sprite_example
   renderers_example
   text_example
+  parent_child_example
 )
 
 set(DATA_DESTINATION ${CMAKE_BINARY_DIR}/examples/${CMAKE_BUILD_TYPE}/data)
