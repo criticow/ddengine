@@ -124,32 +124,15 @@ void Window::updateViewport()
   ASSERT(this->isGLLoaded, "OpenGL is not loaded");
 
   this->framebufferMutex.lock();
+
   if(this->isFramebufferUpdated)
   {
     this->isFramebufferUpdated = false;
 
-    // Update scaling factors
-    float scaleX = static_cast<float>(width) / this->resolutionWidth;
-    float scaleY = static_cast<float>(height) / this->resolutionHeight;
-
-    // Maintain the aspect ratio
-    float aspectGame = static_cast<float>(this->resolutionWidth) / this->resolutionHeight;
-    float aspectWindow = static_cast<float>(width) / height;
-
-    int viewportWidth, viewportHeight;
-    if (aspectWindow > aspectGame) {
-      viewportHeight = height;
-      viewportWidth = static_cast<int>(height * aspectGame);
-    } else {
-      viewportWidth = width;
-      viewportHeight = static_cast<int>(width / aspectGame);
-    }
-
-    int viewportX = (width - viewportWidth) / 2;
-    int viewportY = (height - viewportHeight) / 2;
+    auto dimensions = getViewportDimensions(width, height, resolutionWidth, resolutionHeight);
 
     // Set the OpenGL viewport
-    glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
+    glViewport(dimensions.x, dimensions.y, dimensions.z, dimensions.w);
   }
 
   this->framebufferMutex.unlock();
@@ -181,21 +164,70 @@ void Window::cursorPosCallback(GLFWwindow *handle, double xPos, double yPos)
   windowPointer->cursorPosMutex.lock();
   windowPointer->isCursorPosUpdated = true;
 
-  if(windowPointer->mouse.firstMouse)
+  auto &mouse = windowPointer->mouse;
+  auto width = windowPointer->width;
+  auto height = windowPointer->height;
+  auto resolutionWidth = windowPointer->resolutionWidth;
+  auto resolutionHeight = windowPointer->resolutionHeight;
+
+  auto viewportDimensions = windowPointer->getViewportDimensions(
+    width,
+    height,
+    resolutionWidth,
+    resolutionHeight
+  );
+
+  if(mouse.firstMouse)
   {
-    windowPointer->mouse.firstMouse = false;
-    windowPointer->mouse.x = static_cast<float>(xPos);
-    windowPointer->mouse.y = static_cast<float>(yPos);
+    mouse.firstMouse = false;
+    mouse.clientX = static_cast<float>(xPos);
+    mouse.clientY = static_cast<float>(yPos);
   }
   
   // Update mouse position
-  windowPointer->mouse.lastX = windowPointer->mouse.x;
-  windowPointer->mouse.lastY = windowPointer->mouse.y;
+  mouse.lastX = mouse.clientX;
+  mouse.lastY = mouse.clientY;
 
   // Update mouse last position
-  windowPointer->mouse.x = static_cast<float>(xPos);
-  windowPointer->mouse.y = static_cast<float>(yPos);
+  mouse.clientX = static_cast<float>(xPos);
+  mouse.clientY = static_cast<float>(yPos);
+
+  // should use the available viewport as base instead of the window width/height
+  float scaleX = static_cast<float>(viewportDimensions.z) / resolutionWidth;
+  float scaleY = static_cast<float>(viewportDimensions.w) / resolutionHeight;
+
+  // calculate the world x/y base on the resolution
+  mouse.x = (mouse.clientX - viewportDimensions.x) / scaleX;
+  mouse.y = (mouse.clientY - viewportDimensions.y) / scaleY;
+
   windowPointer->cursorPosMutex.unlock();
+}
+
+glm::vec4 Window::getViewportDimensions(int width, int height, int resolutionWidth, int resolutionHeight)
+{
+  // Update scaling factors
+  float scaleX = static_cast<float>(width) / this->resolutionWidth;
+  float scaleY = static_cast<float>(height) / this->resolutionHeight;
+
+  // Maintain the aspect ratio
+  float aspectGame = static_cast<float>(this->resolutionWidth) / this->resolutionHeight;
+  float aspectWindow = static_cast<float>(width) / height;
+
+  int viewportWidth;
+  int viewportHeight;
+
+  if (aspectWindow > aspectGame) {
+    viewportHeight = height;
+    viewportWidth = static_cast<int>(height * aspectGame);
+  } else {
+    viewportWidth = width;
+    viewportHeight = static_cast<int>(width / aspectGame);
+  }
+
+  int viewportX = (width - viewportWidth) / 2;
+  int viewportY = (height - viewportHeight) / 2;
+
+  return glm::vec4(viewportX, viewportY, viewportWidth, viewportHeight);
 }
 
 void Window::glDebugOutput(GLenum src, GLenum type, GLuint id, GLenum severity, GLsizei len, const char *msg, const void *usrParam)

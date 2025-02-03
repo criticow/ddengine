@@ -41,7 +41,8 @@ void QuadRenderer::onSetup()
       vec4 texCoords2;
       int textureID;
       int isText;
-      int padding[2];
+      int layer; // -1 is disabled, invisible
+      int isDeleted;
     };
 
     layout (std430, binding = 0) buffer InstancesBuffer {
@@ -60,6 +61,13 @@ void QuadRenderer::onSetup()
     void main()
     {
       InstanceData instanceData = instancesData[gl_InstanceID];
+
+      // Dont render this instance
+      if(instanceData.layer == -1 || instanceData.isDeleted == 1)
+      {
+        return;
+      }
+
       gl_Position = projection * instanceData.model * vec4(aPos.xy, 0.0, 1.0);
 
       if(gl_VertexID == 0) vs_out.texCoords = instanceData.texCoords1.xy;
