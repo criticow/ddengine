@@ -1,0 +1,112 @@
+#include "text.hpp"
+
+#include <ddengine/core/engine.hpp>
+
+Text::Text(TextCreateInfo textCreateInfo)
+{
+  this->font = textCreateInfo.font;
+  this->parentTransform = textCreateInfo.parentTransform;
+  this->value = textCreateInfo.value;
+  this->position = textCreateInfo.position;
+  this->rotation = textCreateInfo.rotation;
+  this->color = textCreateInfo.color;
+  this->layer = textCreateInfo.layer;
+
+  instances.reserve(value.length());
+
+  this->setup();
+}
+
+void Text::setValue(const std::string &value)
+{
+  // Exit if the value hasnt changed
+  // if(this->value == value) return;
+
+  this->value = value;
+
+  this->setup();
+}
+
+void Text::setPosition(const glm::vec2 &position)
+{
+  if(this->position == position) return;
+
+  this->position = position;
+}
+
+void Text::setup()
+{
+  float offsetX = this->position.x;
+  int index = 0;
+
+  Sprite sprite(SpriteCreateInfo{
+    .texture = font->texture,
+    .color = this->color,
+    .isText = true,
+    .layer = this->layer,
+    .display = QID_DISPLAY_ENABLED,
+  });
+
+  Transform transform;
+  transform.parentTransform = this->parentTransform;
+
+  for(auto c : value)
+  {
+    auto character = this->font->characters[c];
+
+    if(static_cast<int>(c) == static_cast<int>(' '))
+    {
+      offsetX += font->maxAdvance;
+      continue;
+    }
+
+    int size = this->instances.size() -1;
+
+    // Insert a new default instance
+    if(index > size)
+    {
+      instances.push_back(Engine::quadRenderer.addInstance(QuadInstanceData()));
+    }
+
+    auto &data = Engine::quadRenderer.instancesData.at(this->instances.at(index));
+
+    float heightFiller = this->position.y + font->maxHeight - character.bearingY;
+
+    transform.position = glm::vec3(offsetX, heightFiller, sprite.layer / 10.0f);
+    transform.size = glm::vec3(character.width, character.height, 0.0f);
+    transform.rotation = this->rotation;
+
+    sprite.dimensions = glm::vec4(
+      character.xOffset,
+      character.yOffset,
+      character.width,
+      character.height
+    );
+
+    data.model = transform.getModel();
+    data.layer = sprite.layer;
+    data.isText = sprite.isText;
+    data.textureID = sprite.texture->index;
+    data.color = sprite.color;
+    data.strokeColor = sprite.color;
+    data.display = sprite.display;
+
+    auto texCoords = sprite.getTexCoords();
+    data.texCoords1 = texCoords.first;
+    data.texCoords2 = texCoords.second;
+
+    offsetX += character.width + 1.0f;
+    index++;
+  }
+
+  // Delete/disable the unused instances
+  if(this->instances.size() > index)
+  {
+    for(size_t i = index; i < this->instances.size(); i++)
+    {
+      auto instanceIndex = this->instances.at(i);
+      auto &data = Engine::quadRenderer.instancesData.at(instanceIndex);
+      data.display = QID_DISPLAY_DISABLED;
+    }
+  }
+}

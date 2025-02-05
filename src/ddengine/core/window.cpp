@@ -70,9 +70,11 @@ void Window::loadGL()
 
   ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Could not load OpenGL");
 
-  glDisable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  glEnable(GL_DEPTH_TEST);
+  // glDepthFunc(GL_LESS);
 
   int flags;
   glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
@@ -104,7 +106,7 @@ void Window::setTitle(const std::string &title)
 void Window::clear()
 {
   ASSERT(this->isGLLoaded, "Could not clear buffer, OpenGL is not loaded");
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::setUserPointer()

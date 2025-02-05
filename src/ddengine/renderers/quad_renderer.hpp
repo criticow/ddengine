@@ -4,6 +4,11 @@
 
 #include <ddengine/renderers/renderer.hpp>
 
+// QID - QuadInstanceData
+#define QID_DISPLAY_ENABLED 0
+#define QID_DISPLAY_DISABLED 1
+#define QID_DISPLAY_DELETED 2
+
 struct QuadInstanceData
 {
   // C++ and shader usage
@@ -15,7 +20,7 @@ struct QuadInstanceData
   int textureID;          // 4 bytes
   int isText;             // 4 bytes
   int layer;              // 4 bytes
-  int isDeleted;          // 4 bytes
+  int display;          // 4 bytes
 };
 
 class QuadRenderer : public Renderer<QuadInstanceData>
@@ -24,5 +29,10 @@ class QuadRenderer : public Renderer<QuadInstanceData>
   QuadRenderer();
   void onSetup() override;
   void onRender(glm::mat4 projection) override;
+
+  int addInstance(QuadInstanceData data);
+
+  private:
   Shader *shader = nullptr;
+  std::vector<int> unusedIndexes;
 };

@@ -20,7 +20,7 @@ Font::Font(const std::string &name, const std::string &path, unsigned int size, 
   // Calculate atlas dimensions
   int atlasWidth = 0;
   int atlasHeight = 0;
-  int padding = 1;
+  int padding = 3;
 
   for (unsigned char c = 32; c < 128; c++)
   {

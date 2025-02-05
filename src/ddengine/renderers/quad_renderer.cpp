@@ -41,8 +41,8 @@ void QuadRenderer::onSetup()
       vec4 texCoords2;
       int textureID;
       int isText;
-      int layer; // -1 is disabled, invisible
-      int isDeleted;
+      int layer;
+      int display; // 0 enabled, 1 disabled, 2 deleted
     };
 
     layout (std430, binding = 0) buffer InstancesBuffer {
@@ -63,7 +63,7 @@ void QuadRenderer::onSetup()
       InstanceData instanceData = instancesData[gl_InstanceID];
 
       // Dont render this instance
-      if(instanceData.layer == -1 || instanceData.isDeleted == 1)
+      if(instanceData.display > 0)
       {
         return;
       }
@@ -109,6 +109,11 @@ void QuadRenderer::onSetup()
       if(fs_in.isText == 1)
       {
         vec4 sampled = vec4(1.0, 1.0, 1.0, texture(textures[fs_in.textureID], fs_in.texCoords).r);
+        if(sampled.a < 0.01)
+        {
+          discard;
+        }
+
         FragColor = fs_in.color * sampled;
         return;
       }
@@ -132,4 +137,20 @@ void QuadRenderer::onRender(glm::mat4 projection)
     shader->setInt(std::format("textures[{}]", texture.index), texture.index);
     texture.bind();
   }
+}
+int QuadRenderer::addInstance(QuadInstanceData data)
+{
+  int index;
+
+  if(!this->unusedIndexes.empty())
+  {
+    index = this->unusedIndexes[0];
+    this->unusedIndexes.erase(this->unusedIndexes.begin());
+    return index;
+  }
+
+  this->instancesData.push_back(data);
+  index = this->instancesData.size() -1;
+
+  return index;
 };

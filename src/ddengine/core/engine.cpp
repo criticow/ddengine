@@ -4,6 +4,8 @@ Window Engine::window;
 Temporizer Engine::tempo;
 Input Engine::input;
 ResourceManager Engine::resourceManager;
+QuadRenderer Engine::quadRenderer;
+LineRenderer Engine::lineRenderer;
 
 Engine::Engine(int width, int height, int resWidth, int resHeight, const char *title)
 {

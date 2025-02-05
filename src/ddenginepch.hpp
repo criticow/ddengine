@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <thread>
+#include <cmath>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>

@@ -17,6 +17,8 @@ class Engine
   static Temporizer tempo;
   static Input input;
   static ResourceManager resourceManager;
+  static QuadRenderer quadRenderer;
+  static LineRenderer lineRenderer;
 
   void run();
 
@@ -31,9 +33,6 @@ class Engine
   // For engine and derived classes use
   protected:
   Engine(int width, int height, int resWidth, int resHeight, const char *title);
-
-  QuadRenderer quadRenderer;
-  LineRenderer lineRenderer;
 
   virtual void onUpdate(){};
   virtual void onSetup(){};
