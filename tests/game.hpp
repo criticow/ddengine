@@ -2,83 +2,48 @@
 
 #include <ddengine/ddengine.hpp>
 
-std::vector<Text> texts;
-Transform transform;
-QuadInstanceData qid;
-int index;
+EntityManager entityManager;
 
 class Game : public Engine
 {
   public:
   Game(int width, int height, int resWidth, int resHeight, const char *title) : 
     Engine(width, height, resWidth, resHeight, title){};
+
   // This method is called in the end of the main update
   void onUpdate() override
   {
-    if(tempo.justUpdated)
-    {
-      window.setTitle(std::format("{:.2f} ms, {:.2f} fps", tempo.ms, tempo.fps));
-    }
-
-    transform.rotation.z += 10.0f * tempo.deltaTime;
-    quadRenderer.instancesData[index].model = transform.getModel();
-
-    for(auto &text : texts)
-    {
-      text.setValue(std::format("{}, {}", window.mouse.x, window.mouse.y));
-    }
   };
 
   // This method is called in the end of the main setup
   void onSetup() override
   {
-    window.setColor(0.1f, 0.2f, 0.3f, 1.0f);
+    auto entity = entityManager.create();
 
-    auto font = resourceManager.setFont("dogica", "c:/dev/ddengine/examples/data/fonts/dogica.ttf", 16, true);
-
-    transform.size = glm::vec3(200.0f, 64.0f, 0.0f);
-    transform.position = glm::vec3(
-      window.resolutionWidth * 0.5f - transform.size.x * 0.5f,
-      window.resolutionHeight * 0.5f - transform.size.y * 0.5f,
-      0.0f
-    );
-    transform.rotation = glm::vec3(0.0f, 0.0f, 45.0f);
-
-    texts.push_back(Text(TextCreateInfo{
-      .font = font,
-      .parentTransform = &transform,
-      .value = "12345",
-      .position = glm::vec2(0.0f, 0.0),
-      .color = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f),
-      .layer = 1
+    auto c1 = entityManager.addComponent<Transform>(entity, Transform({
+      nullptr,
+      glm::vec3(1.0f),
+      glm::vec3(2.0f),
+      glm::vec3(3.0f)
     }));
 
-    texts.push_back(Text(TextCreateInfo{
+    auto c2 = entityManager.addComponent<Text>(entity, Text{});
+
+    auto font = resourceManager.addResource<Font>("dogica", Font{
+      {
+        .name = "dogica",
+        .path = "c:/dev/ddengine/examples/data/fonts/dogica.ttf",
+        .size = 16,
+        .pixelated = true
+      }
+    });
+
+    Text text(TextCreateInfo{
       .font = font,
-      .parentTransform = &transform,
-      .value = "12345",
-      .position = glm::vec2(0.0f, font->maxHeight),
-      .color = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f),
-      .layer = 1
-    }));
-
-    texts.push_back(Text(TextCreateInfo{
-      .font = font,
-      .parentTransform = &transform,
-      .value = "12345",
-      .position = glm::vec2(0.0f, font->maxHeight * 2.0f),
-      .color = glm::vec4(1.0f, 0.0f, 1.0f, 1.0f),
-      .layer = 1
-    }));
-
-    qid.color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-    qid.model = transform.getModel();
-    qid.textureID = -1;
-
-    index = quadRenderer.addInstance(qid);
-
-    lineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * 0.5f, 0.0f), glm::vec2(window.resolutionWidth * 0.5f, window.resolutionHeight), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
-    lineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * 0.5f), glm::vec2(window.resolutionWidth, window.resolutionHeight * 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
+      .value = "Teste",
+      .position = glm::vec3(64.0f),
+      .color = glm::vec4(1.0f)
+    });
   };
 
   void onRender() override

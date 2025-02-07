@@ -20,7 +20,7 @@ struct QuadInstanceData
   int textureID;          // 4 bytes
   int isText;             // 4 bytes
   int layer;              // 4 bytes
-  int display;          // 4 bytes
+  int display;            // 4 bytes
 };
 
 class QuadRenderer : public Renderer<QuadInstanceData>

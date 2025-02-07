@@ -6,50 +6,68 @@
 #include <ddengine/resources/texture.hpp>
 #include <ddengine/resources/font.hpp>
 
+class IResourceStorage
+{
+  public:
+  virtual ~IResourceStorage() = default;
+  virtual void erase(const std::string &handle) = 0;
+};
+
+template<typename T>
+class ResourceStorage : public IResourceStorage
+{
+  public:
+  std::unordered_map<std::string, T> resources;
+
+  void erase(const std::string &handle) override
+  {
+    resources.erase(handle);
+  }
+};
+
 class ResourceManager
 {
   public:
-  ResourceManager();
+  ResourceManager(){};
 
-  Shader* getShader(const std::string &name);
-  Shader* setShader(const std::string &name, const char *vShaderData, const char *fShaderData);
-  Shader* setShader(const std::string &name, Shader shader);
-  std::vector<Shader> getShaders();
+  template<typename T>
+  ResourceStorage<T>& getStorage()
+  {
+    std::type_index typeId = std::type_index(typeid(T));
 
-  Texture* getTexture(const std::string &name);
-  Texture* setTexture(const std::string &name, const std::string &path);
-  Texture* setTexture(const std::string &name, Texture texture);
-  std::vector<Texture> getTextures();
+    // Component storage doesnt exist
+    if(storages.find(typeId) == storages.end())
+    {
+      storages[typeId] = std::make_shared<ResourceStorage<T>>();
+    }
 
-  Font* getFont(const std::string &name);
-  Font* setFont(const std::string &name, const std::string &path, unsigned int size, bool pixelated = false);
-  Font* setFont(const std::string &name, Font font);
-  std::vector<Font> getFonts();
+    return *static_cast<ResourceStorage<T>*>(storages[typeId].get());
+  }
+
+  template<typename T, typename... Args>
+  T* addResource(const std::string &name, Args&&... args)
+  {
+    auto &storage = getStorage<T>();
+    auto [it, inserted] = storage.resources.emplace(name, T(std::forward<Args>(args)...));
+    return &it->second;
+  }
+
+  template<typename T>
+  T* getResource(const std::string &name)
+  {
+    auto &storage = getStorage<T>();
+    auto it = storage.resources.find();
+
+    return (it != storage.end()) ? &it->second : nullptr;
+  }
 
   template<typename T>
   bool hasResource(const std::string &name)
   {
-    if(std::is_same<T, Shader>::value)
-    {
-      return this->shaders.find(name) != this->shaders.end();
-    }
-
-    if(std::is_same<T, Texture>::value)
-    {
-      return this->textures.find(name) != this->textures.end();
-    }
-
-    if(std::is_same<T, Font>::value)
-    {
-      return this->fonts.find(name) != this->fonts.end();
-    }
-
-    return false;
+    auto &storage = getStorage<T>();
+    return storage.find(name) != storage.end();
   }
 
   protected:
-  std::unordered_map<std::string, Shader> shaders;
-  std::unordered_map<std::string, Texture> textures;
-  std::unordered_map<std::string, Font> fonts;
-  std::vector<int> textureIDs;
+  std::unordered_map<std::type_index, std::shared_ptr<IResourceStorage>> storages;
 };

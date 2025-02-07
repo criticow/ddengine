@@ -2,20 +2,29 @@
 
 #include <ddenginepch.hpp>
 
+struct TextureCreateInfo
+{
+  std::string path;
+  int width;
+  int height;
+  unsigned char *buffer = nullptr;
+  bool pixelated = false;
+};
+
 class Texture
 {
   public:
   GLuint handle;
   int width;
   int height;
-  int index;
+  static unsigned int index;
 
   Texture(){};
-  // from image file
-  Texture(const std::string &path, int index = 0);
-  // from font file
-  Texture(int width, int height, unsigned char *buffer, bool pixelated = false);
+  Texture(TextureCreateInfo textureCreateInfo);
 
   void bind();
   void destroy();
+  private:
+  void fromFile(TextureCreateInfo textureCreateInfo);
+  void fromBuffer(TextureCreateInfo textureCreateInfo);
 };

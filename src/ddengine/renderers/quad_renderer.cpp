@@ -122,7 +122,7 @@ void QuadRenderer::onSetup()
     }
   )";
 
-  this->shader = Engine::resourceManager.setShader("quad_default", vShaderData, fShaderData);
+  this->shader = Engine::resourceManager.addResource<Shader>("quad_default", Shader{vShaderData, fShaderData});
 };
 
 void QuadRenderer::onRender(glm::mat4 projection)
@@ -130,9 +130,9 @@ void QuadRenderer::onRender(glm::mat4 projection)
   shader->use();
   shader->setMatrix("projection", projection);
 
-  auto textures = Engine::resourceManager.getTextures();
+  auto textureStorage = Engine::resourceManager.getStorage<Texture>();
 
-  for(auto &texture : textures)
+  for(auto &[key, texture] : textureStorage.resources)
   {
     shader->setInt(std::format("textures[{}]", texture.index), texture.index);
     texture.bind();

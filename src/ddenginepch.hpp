@@ -14,6 +14,8 @@
 #include <chrono>
 #include <thread>
 #include <cmath>
+#include <typeinfo>
+#include <typeindex>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>

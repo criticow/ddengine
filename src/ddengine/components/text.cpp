@@ -20,7 +20,7 @@ Text::Text(TextCreateInfo textCreateInfo)
 void Text::setValue(const std::string &value)
 {
   // Exit if the value hasnt changed
-  // if(this->value == value) return;
+  if(this->value == value) return;
 
   this->value = value;
 

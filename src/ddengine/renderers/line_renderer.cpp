@@ -62,7 +62,7 @@ void LineRenderer::onSetup()
     }
   )";
 
-  this->shader = Engine::resourceManager.setShader("line_default", vShaderData, fShaderData);
+  this->shader = Engine::resourceManager.addResource<Shader>("line_default", Shader{vShaderData, fShaderData});
 };
 
 void LineRenderer::onRender(glm::mat4 projection)

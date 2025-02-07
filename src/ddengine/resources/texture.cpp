@@ -2,9 +2,45 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-Texture::Texture(const std::string &path, int index)
+const unsigned int MAX_TEXTURES = 16;
+
+unsigned int Texture::index = 0;
+
+Texture::Texture(TextureCreateInfo textureCreateInfo)
 {
+  ASSERT(index < MAX_TEXTURES, "Reached max amount of textures. Amount: {}", MAX_TEXTURES);
+
   this->index = index;
+
+  index++;
+
+  if(textureCreateInfo.buffer)
+  {
+    fromBuffer(textureCreateInfo);
+
+    return;
+  }
+
+  fromFile(textureCreateInfo);
+}
+
+void Texture::bind()
+{
+  glActiveTexture(GL_TEXTURE0 + index);
+  glBindTexture(GL_TEXTURE_2D, this->handle);
+}
+
+void Texture::destroy()
+{
+  glDeleteTextures(1, &this->handle);
+}
+
+void Texture::fromFile(TextureCreateInfo textureCreateInfo)
+{
+  auto path = textureCreateInfo.path;
+  this->width = textureCreateInfo.width;
+  this->height = textureCreateInfo.height;
+
   
   glGenTextures(1, &this->handle);
   glBindTexture(GL_TEXTURE_2D, this->handle);
@@ -31,12 +67,15 @@ Texture::Texture(const std::string &path, int index)
   glBindTexture(GL_TEXTURE_2D, 0);
 
   stbi_image_free(data);
+
 }
 
-Texture::Texture(int width, int height, unsigned char *buffer, bool pixelated)
+void Texture::fromBuffer(TextureCreateInfo textureCreateInfo)
 {
-  this->width = width;
-  this->height = height;
+  auto pixelated = textureCreateInfo.pixelated;
+  auto buffer = textureCreateInfo.buffer;
+  this->width = textureCreateInfo.width;
+  this->height = textureCreateInfo.height;
 
   glGenTextures(1, &this->handle);
 
@@ -49,15 +88,4 @@ Texture::Texture(int width, int height, unsigned char *buffer, bool pixelated)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, pixelated ? GL_NEAREST : GL_LINEAR);
 
   glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Texture::bind()
-{
-  glActiveTexture(GL_TEXTURE0 + index);
-  glBindTexture(GL_TEXTURE_2D, this->handle);
-}
-
-void Texture::destroy()
-{
-  glDeleteTextures(1, &this->handle);
 }

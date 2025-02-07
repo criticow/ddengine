@@ -15,11 +15,19 @@ struct Character {
   float advance;  // Horizontal offset to advance to the next glyph
 };
 
+struct FontCreateInfo
+{
+  std::string name;
+  std::string path;
+  unsigned int size = 16;
+  bool pixelated = false;
+};
+
 class Font
 {
   public:
   Font(){};
-  Font(const std::string &name, const std::string &path, unsigned int size, bool pixelated = false);
+  Font(FontCreateInfo fontCreateInfo);
 
   std::string name;
   Texture *texture = nullptr;

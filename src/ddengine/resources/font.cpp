@@ -2,8 +2,10 @@
 
 #include <ddengine/core/engine.hpp>
 
-Font::Font(const std::string &name, const std::string &path, unsigned int size, bool pixelated)
+Font::Font(FontCreateInfo fontCreateInfo)
 {
+  auto [name, path, size, pixelated] = fontCreateInfo;
+
   this->name = name;
 
   FT_Library ft;
@@ -80,7 +82,12 @@ Font::Font(const std::string &name, const std::string &path, unsigned int size, 
     xOffset += glyph->bitmap.width + padding;
   }
 
-  this->texture = Engine::resourceManager.setTexture(name + "_" + std::to_string(size), Texture(atlasWidth, atlasHeight, atlasBuffer, pixelated));
+  this->texture = Engine::resourceManager.addResource<Texture>(name + "_" + std::to_string(size), Texture({
+    .width = atlasWidth,
+    .height = atlasHeight,
+    .buffer = atlasBuffer,
+    .pixelated = pixelated
+  }));
 
   // Clean up
   delete[] atlasBuffer;
