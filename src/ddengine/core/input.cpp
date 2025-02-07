@@ -8,6 +8,8 @@ Input::Input()
     { MOUSE_BUTTON_RIGHT, { Action::Origin::MOUSE, {}, { GLFW_MOUSE_BUTTON_RIGHT } } },
     { ACTION_LEFT, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_A, GLFW_KEY_LEFT } } },
     { ACTION_RIGHT, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_D, GLFW_KEY_RIGHT } } },
+    { ACTION_UP, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_W, GLFW_KEY_UP } } },
+    { ACTION_DOWN, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_S, GLFW_KEY_DOWN } } },
     { ACTION_FORWARD, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_W, GLFW_KEY_UP } } },
     { ACTION_BACKWARD, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_S, GLFW_KEY_DOWN } } },
     { ACTION_JUMP, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_SPACE } } },

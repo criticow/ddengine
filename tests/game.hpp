@@ -2,7 +2,7 @@
 
 #include <ddengine/ddengine.hpp>
 
-EntityManager entityManager;
+SpriteEntity *e = nullptr;
 
 class Game : public Engine
 {
@@ -13,37 +13,47 @@ class Game : public Engine
   // This method is called in the end of the main update
   void onUpdate() override
   {
+    glm::vec3 velocity(0.0f);
+    float speed = 100.0f;
+
+    if(input.held(ACTION_LEFT))
+    {
+      velocity.x -= speed * tempo.deltaTime;
+    }
+    else if(input.held(ACTION_RIGHT))
+    {
+      velocity.x += speed * tempo.deltaTime;
+    }
+
+    if(input.held(ACTION_UP))
+    {
+      velocity.y -= speed * tempo.deltaTime;
+    }
+    else if(input.held(ACTION_DOWN))
+    {
+      velocity.y += speed * tempo.deltaTime;
+    }
+
+    e->transform.position += velocity;
+    e->update();
   };
 
   // This method is called in the end of the main setup
   void onSetup() override
   {
-    auto entity = entityManager.create();
+    int amount = 100000;
 
-    auto c1 = entityManager.addComponent<Transform>(entity, Transform({
+    glm::vec3 size(8.0f, 8.0f, 0.0f);
+    auto transform = Transform({
       nullptr,
-      glm::vec3(1.0f),
-      glm::vec3(2.0f),
-      glm::vec3(3.0f)
-    }));
-
-    auto c2 = entityManager.addComponent<Text>(entity, Text{});
-
-    auto font = resourceManager.addResource<Font>("dogica", Font{
-      {
-        .name = "dogica",
-        .path = "c:/dev/ddengine/examples/data/fonts/dogica.ttf",
-        .size = 16,
-        .pixelated = true
-      }
+      glm::vec3(8.0f, 8.0f, 0.0f),
+      size,
+      glm::vec3(0.0f)
     });
 
-    Text text(TextCreateInfo{
-      .font = font,
-      .value = "Teste",
-      .position = glm::vec3(64.0f),
-      .color = glm::vec4(1.0f)
-    });
+    auto sprite = Sprite{SpriteCreateInfo{.color = glm::vec4(1.0f)}};
+
+    e = new SpriteEntity(transform, sprite);
   };
 
   void onRender() override

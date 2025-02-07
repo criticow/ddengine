@@ -43,7 +43,7 @@ void Text::setup()
     .texture = font->texture,
     .color = this->color,
     .isText = true,
-    .layer = this->layer,
+    // .layer = this->layer,
     .display = QID_DISPLAY_ENABLED,
   });
 
@@ -72,7 +72,7 @@ void Text::setup()
 
     float heightFiller = this->position.y + font->maxHeight - character.bearingY;
 
-    transform.position = glm::vec3(offsetX, heightFiller, sprite.layer / 10.0f);
+    // transform.position = glm::vec3(offsetX, heightFiller, sprite.layer / 10.0f);
     transform.size = glm::vec3(character.width, character.height, 0.0f);
     transform.rotation = this->rotation;
 
@@ -84,7 +84,7 @@ void Text::setup()
     );
 
     data.model = transform.getModel();
-    data.layer = sprite.layer;
+    // data.layer = sprite.layer;
     data.isText = sprite.isText;
     data.textureID = sprite.texture->index;
     data.color = sprite.color;

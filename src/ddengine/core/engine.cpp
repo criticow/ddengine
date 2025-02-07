@@ -63,6 +63,7 @@ void Engine::update()
 void Engine::render()
 {
   glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window.resolutionWidth), static_cast<float>(window.resolutionHeight), 0.0f, -1.0f, 1.0f);
+
   this->quadRenderer.render(projection);
   this->lineRenderer.render(projection);
 }

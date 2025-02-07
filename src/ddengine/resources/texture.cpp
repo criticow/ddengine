@@ -2,9 +2,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-const unsigned int MAX_TEXTURES = 16;
+const int MAX_TEXTURES = 16;
 
-unsigned int Texture::index = 0;
+int Texture::index = 0;
 
 Texture::Texture(TextureCreateInfo textureCreateInfo)
 {

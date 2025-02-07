@@ -16,6 +16,8 @@
 #include <cmath>
 #include <typeinfo>
 #include <typeindex>
+#include <random>
+#include <iomanip>
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>

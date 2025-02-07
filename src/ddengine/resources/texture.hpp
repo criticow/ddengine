@@ -17,7 +17,7 @@ class Texture
   GLuint handle;
   int width;
   int height;
-  static unsigned int index;
+  static int index;
 
   Texture(){};
   Texture(TextureCreateInfo textureCreateInfo);

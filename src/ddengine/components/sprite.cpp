@@ -10,8 +10,39 @@ Sprite::Sprite(SpriteCreateInfo spriteCreateInfo)
   this->flipX = spriteCreateInfo.flipX;
   this->flipY = spriteCreateInfo.flipY;
   this->isText = spriteCreateInfo.isText;
-  this->layer = spriteCreateInfo.layer;
   this->display = spriteCreateInfo.display;
+}
+
+Sprite::Sprite(const Sprite &other)
+{
+  this->texture = other.texture;
+  this->dimensions = other.dimensions;
+  this->color = other.color;
+  this->flipX = other.flipX;
+  this->flipY = other.flipY;
+  this->isText = other.isText;
+  this->display = other.display;
+}
+
+QuadInstanceData Sprite::getInstanceData(Transform &transform)
+{
+  auto qid = QuadInstanceData{
+    .model = transform.getModel(),
+    .color = this->color,
+    .textureID = this->texture ? this->texture->index : -1,
+    .isText = this->isText,
+    .display = this->display,
+  };
+
+  if(this->texture)
+  {
+    auto texCoords = getTexCoords();
+
+    qid.texCoords1 = texCoords.first;
+    qid.texCoords2 = texCoords.second;
+  }
+
+  return std::move(qid);
 }
 
 std::pair<glm::vec4, glm::vec4> Sprite::getTexCoords()

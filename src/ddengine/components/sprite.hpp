@@ -3,6 +3,7 @@
 #include <ddenginepch.hpp>
 #include <ddengine/resources/texture.hpp>
 #include <ddengine/renderers/quad_renderer.hpp>
+#include <ddengine/components/transform.hpp>
 
 struct SpriteCreateInfo
 {
@@ -12,8 +13,7 @@ struct SpriteCreateInfo
   bool flipX = false;
   bool flipY = false;
   bool isText = false;
-  int layer = 0;
-  int display = QID_DISPLAY_DISABLED;
+  int display = QID_DISPLAY_ENABLED;
 };
 
 class Sprite
@@ -25,11 +25,12 @@ class Sprite
   bool flipX;
   bool flipY;
   bool isText;
-  int layer;
   int display;
 
   Sprite();
   Sprite(SpriteCreateInfo spriteCreateInfo);
+  Sprite(const Sprite &other);
 
   std::pair<glm::vec4, glm::vec4> getTexCoords();
+  QuadInstanceData getInstanceData(Transform &transform);
 };

@@ -6,10 +6,22 @@ Transform::Transform(TransformCreateInfo transformCreateInfo)
   this->position = transformCreateInfo.position;
   this->size = transformCreateInfo.size;
   this->rotation = transformCreateInfo.rotation;
+  this->layer = transformCreateInfo.layer;
+}
+
+Transform::Transform(const Transform &other)
+{
+  this->parentTransform = other.parentTransform;
+  this->position = other.position;
+  this->size = other.size;
+  this->rotation = other.rotation;
+  this->layer = other.layer;
 }
 
 glm::mat4 Transform::getModel()
 {
+  this->position.z = this->layer / 10.0f;
+
   glm::mat4 parentModel(1.0f);
 
   if(parentTransform)
