@@ -43,7 +43,7 @@
 #define KEY_Z "key_z"
 
 #define KEY_UP "key_up"
-#define KEY_DOW "key_dow"
+#define KEY_DOWN "key_down"
 #define KEY_LEFT "key_left"
 #define KEY_RIGHT "key_right"
 

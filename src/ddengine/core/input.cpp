@@ -19,7 +19,7 @@ Input::Input()
     { KEY_S, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_S } } },
     { KEY_W, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_W } } },
     { KEY_UP, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_UP } } },
-    { KEY_DOW, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_DOWN } } },
+    { KEY_DOWN, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_DOWN } } },
     { KEY_F1, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_F1 } } },
     { KEY_F2, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_F2 } } },
     { KEY_F3, { Action::Origin::KEYBOARD, {}, { GLFW_KEY_F3 } } },
