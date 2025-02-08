@@ -49,8 +49,8 @@ std::pair<glm::vec4, glm::vec4> Sprite::getTexCoords()
 {
   ASSERT(texture, "Invalid texture");
 
-  float totalWidth = texture->width;
-  float totalHeight = texture->height;
+  float totalWidth = static_cast<float>(texture->width);
+  float totalHeight = static_cast<float>(texture->height);
   float x = dimensions.x;
   float y = dimensions.y;
   float width = dimensions.z;

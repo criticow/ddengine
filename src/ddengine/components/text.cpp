@@ -60,7 +60,7 @@ void Text::setup()
       continue;
     }
 
-    int size = this->instances.size() -1;
+    int size = static_cast<int>(this->instances.size() -1);
 
     // Insert a new default instance
     if(index > size)

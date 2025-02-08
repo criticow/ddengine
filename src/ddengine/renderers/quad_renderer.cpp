@@ -150,7 +150,7 @@ int QuadRenderer::addInstance(QuadInstanceData data)
   }
 
   this->instancesData.push_back(data);
-  index = this->instancesData.size() -1;
+  index = static_cast<int>(this->instancesData.size() -1);
 
   return index;
 };

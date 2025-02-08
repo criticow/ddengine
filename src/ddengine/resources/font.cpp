@@ -59,9 +59,9 @@ Font::Font(FontCreateInfo fontCreateInfo)
     FT_GlyphSlot glyph = face->glyph;
 
     // Copy glyph bitmap to atlas buffer
-    for (int row = 0; row < glyph->bitmap.rows; row++)
+    for (unsigned int row = 0; row < glyph->bitmap.rows; row++)
     {
-      for (int col = 0; col < glyph->bitmap.width; col++)
+      for (unsigned int col = 0; col < glyph->bitmap.width; col++)
       {
         atlasBuffer[(row * atlasWidth) + xOffset + col] =
           glyph->bitmap.buffer[row * glyph->bitmap.width + col];
