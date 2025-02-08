@@ -42,4 +42,4 @@ add_subdirectory(deps/glad)
 add_subdirectory(deps/freetype)
 
 # Script to generate general output header files
-execute_process(COMMAND node ${CMAKE_SOURCE_DIR}/scripts/headers.js)
+execute_process(COMMAND node ${CMAKE_CURRENT_LIST_DIR}/scripts/headers.js)
