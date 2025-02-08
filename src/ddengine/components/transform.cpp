@@ -20,8 +20,6 @@ Transform::Transform(const Transform &other)
 
 glm::mat4 Transform::getModel()
 {
-  this->position.z = this->layer / 10.0f;
-
   glm::mat4 parentModel(1.0f);
 
   if(parentTransform)
@@ -33,19 +31,19 @@ glm::mat4 Transform::getModel()
     parentModel = glm::translate(parentModel, glm::vec3(parentPosition.x, parentPosition.y, 0.0f));
 
     parentModel = glm::translate(parentModel, glm::vec3(0.5 * parentSize.x, 0.5 * parentSize.y, 0.0f));
-    parentModel = glm::rotate(parentModel, glm::radians(parentRotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+    parentModel = glm::rotate(parentModel, glm::radians(parentRotation), glm::vec3(0.0f, 0.0f, 1.0f));
     parentModel = glm::translate(parentModel, glm::vec3(-0.5 * parentSize.x, -0.5 * parentSize.y, 0.0f));
   }
 
   glm::mat4 model = parentModel;
 
-  model = glm::translate(model, this->position);
+  model = glm::translate(model, glm::vec3(this->position, this->layer / 10.0f));
 
-  model = glm::translate(model, glm::vec3(0.5 * this->size.x, 0.5 * this->size.y, this->size.z));
-  model = glm::rotate(model, glm::radians(this->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-  model = glm::translate(model, glm::vec3(-0.5 * this->size.x, -0.5 * this->size.y, this->size.z));
+  model = glm::translate(model, glm::vec3(0.5 * this->size.x, 0.5 * this->size.y, 0.0f));
+  model = glm::rotate(model, glm::radians(this->rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+  model = glm::translate(model, glm::vec3(-0.5 * this->size.x, -0.5 * this->size.y, 0.0f));
 
-  model = glm::scale(model, this->size);
+  model = glm::scale(model, glm::vec3(this->size, 0.0f));
 
   return model;
 }

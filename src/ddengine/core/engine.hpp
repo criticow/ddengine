@@ -8,6 +8,7 @@
 #include <ddengine/resources/resource_manager.hpp>
 #include <ddengine/renderers/line_renderer.hpp>
 #include <ddengine/renderers/quad_renderer.hpp>
+#include <ddengine/components/camera.hpp>
 
 class Engine
 {
@@ -19,6 +20,7 @@ class Engine
   static ResourceManager resourceManager;
   static QuadRenderer quadRenderer;
   static LineRenderer lineRenderer;
+  static Camera camera;
 
   void run();
 

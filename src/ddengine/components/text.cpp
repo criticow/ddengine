@@ -73,7 +73,7 @@ void Text::setup()
     float heightFiller = this->position.y + font->maxHeight - character.bearingY;
 
     // transform.position = glm::vec3(offsetX, heightFiller, sprite.layer / 10.0f);
-    transform.size = glm::vec3(character.width, character.height, 0.0f);
+    transform.size = glm::vec2(character.width, character.height);
     transform.rotation = this->rotation;
 
     sprite.dimensions = glm::vec4(
@@ -84,7 +84,7 @@ void Text::setup()
     );
 
     data.model = transform.getModel();
-    // data.layer = sprite.layer;
+    data.layer = transform.layer;
     data.isText = sprite.isText;
     data.textureID = sprite.texture->index;
     data.color = sprite.color;

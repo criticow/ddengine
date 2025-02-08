@@ -6,6 +6,7 @@ Input Engine::input;
 ResourceManager Engine::resourceManager;
 QuadRenderer Engine::quadRenderer;
 LineRenderer Engine::lineRenderer;
+Camera Engine::camera;
 
 Engine::Engine(int width, int height, int resWidth, int resHeight, const char *title)
 {
@@ -62,10 +63,11 @@ void Engine::update()
 
 void Engine::render()
 {
-  glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window.resolutionWidth), static_cast<float>(window.resolutionHeight), 0.0f, -1.0f, 1.0f);
+  this->camera.update(window.resolutionWidth, window.resolutionHeight);
+  glm::mat4 viewProjection = this->camera.projection * this->camera.view;
 
-  this->quadRenderer.render(projection);
-  this->lineRenderer.render(projection);
+  this->quadRenderer.render(viewProjection);
+  this->lineRenderer.render(viewProjection);
 }
 
 void Engine::destroy()
