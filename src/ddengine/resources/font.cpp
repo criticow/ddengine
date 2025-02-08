@@ -94,3 +94,17 @@ Font::Font(FontCreateInfo fontCreateInfo)
   FT_Done_Face(face);
   FT_Done_FreeType(ft);
 }
+
+float Font::getTextWidth(const std::string &value)
+{
+  float width = 0.0f;
+
+  for(size_t i = 0; i < value.length(); i++)
+  {
+    auto c = value.at(i);
+    Character character = this->characters[c];
+    width += character.width + 1.0f;
+  }
+
+  return width;
+}

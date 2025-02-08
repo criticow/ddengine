@@ -72,7 +72,7 @@ void Text::setup()
 
     float heightFiller = this->position.y + font->maxHeight - character.bearingY;
 
-    // transform.position = glm::vec3(offsetX, heightFiller, sprite.layer / 10.0f);
+    transform.position = glm::vec2(offsetX, heightFiller);
     transform.size = glm::vec2(character.width, character.height);
     transform.rotation = this->rotation;
 

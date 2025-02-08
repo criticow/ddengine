@@ -131,3 +131,11 @@ bool Input::released(const std::string &name)
 
   return released;
 }
+
+void Input::addAction(const std::string &name, Action::Origin origin, const std::vector<int> &keys)
+{
+  this->actions[name] = Action{
+    .origin = origin,
+    .keys = keys
+  };
+}

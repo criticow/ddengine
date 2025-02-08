@@ -66,6 +66,8 @@ class Input
   bool held(const std::string &name);
   bool released(const std::string &name);
 
+  void addAction(const std::string &name, Action::Origin origin, const std::vector<int> &keys);
+
   private:
   std::unordered_map<std::string, Action> actions;
 };

@@ -34,4 +34,6 @@ class Font
   std::unordered_map<char, Character> characters;
   unsigned int maxHeight;
   unsigned int maxAdvance;
+
+  float getTextWidth(const std::string &value);
 };
