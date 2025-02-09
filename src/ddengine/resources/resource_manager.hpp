@@ -56,16 +56,16 @@ class ResourceManager
   T* getResource(const std::string &name)
   {
     auto &storage = getStorage<T>();
-    auto it = storage.resources.find();
+    auto it = storage.resources.find(name);
 
-    return (it != storage.end()) ? &it->second : nullptr;
+    return (it != storage.resources.end()) ? &it->second : nullptr;
   }
 
   template<typename T>
   bool hasResource(const std::string &name)
   {
     auto &storage = getStorage<T>();
-    return storage.find(name) != storage.end();
+    return storage.resources.find(name) != storage.resources.end();
   }
 
   protected:
