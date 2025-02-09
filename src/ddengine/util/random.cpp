@@ -31,3 +31,12 @@ int Random::choose(int min, int max)
 
   return dist(mt);
 }
+
+float Random::choose(float min, float max)
+{
+  std::random_device rd;
+  std::mt19937_64 mt(rd());
+  std::uniform_real_distribution<float> dist(min, max);
+
+  return dist(mt);
+}
