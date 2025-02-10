@@ -56,11 +56,13 @@ void QuadRenderer::onSetup()
       vec4 color;
       vec4 strokeColor;
       flat int isText;
+      flat int display;
     } vs_out;
 
     void main()
     {
       InstanceData instanceData = instancesData[gl_InstanceID];
+      vs_out.display = instanceData.display;
 
       // Dont render this instance
       if(instanceData.display > 0)
@@ -96,10 +98,16 @@ void QuadRenderer::onSetup()
       vec4 color;
       vec4 strokeColor;
       flat int isText;
+      flat int display;
     } fs_in;
 
     void main()
     {
+      if(fs_in.display > 0)
+      {
+        discard;
+      }
+
       if(fs_in.textureID == -1)
       {
         FragColor = fs_in.color;
@@ -109,6 +117,7 @@ void QuadRenderer::onSetup()
       if(fs_in.isText == 1)
       {
         vec4 sampled = vec4(1.0, 1.0, 1.0, texture(textures[fs_in.textureID], fs_in.texCoords).r);
+
         if(sampled.a < 0.01)
         {
           discard;
