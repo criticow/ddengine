@@ -16,6 +16,7 @@ struct TextCreateInfo
   float rotation = 0.0f;
   glm::vec4 color = glm::vec4(0.0f);
   int layer = 0;
+  int display = QID_DISPLAY_ENABLED;
 };
 
 class Text
@@ -28,6 +29,7 @@ class Text
   float rotation;
   glm::vec4 color;
   int layer;
+  int display;
 
   Text(){};
   Text(TextCreateInfo textCreateInfo);
@@ -35,6 +37,7 @@ class Text
   void setValue(const std::string &value);
   void setPosition(const glm::vec2 &position);
   void setColor(const glm::vec4 &color);
+  void setDisplay(int display);
   void update();
 
   private:

@@ -11,6 +11,7 @@ Text::Text(TextCreateInfo textCreateInfo)
   this->rotation = textCreateInfo.rotation;
   this->color = textCreateInfo.color;
   this->layer = textCreateInfo.layer;
+  this->display = textCreateInfo.display;
 
   instances.reserve(value.length());
 
@@ -47,6 +48,12 @@ void Text::setColor(const glm::vec4 &color)
   }
 
   this->color = color;
+  this->isChanged = true;
+}
+
+void Text::setDisplay(int display)
+{
+  this->display = display;
   this->isChanged = true;
 }
 
