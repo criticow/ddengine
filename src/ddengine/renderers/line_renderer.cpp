@@ -31,6 +31,8 @@ void LineRenderer::onSetup()
       vec2 start;
       vec2 end;
       vec4 color;
+      int display;
+      int padding[3];
     };
 
     layout (std430, binding = 0) buffer InstancesBuffer {
@@ -38,6 +40,7 @@ void LineRenderer::onSetup()
     };
 
     out vec4 color;
+    out flat int display;
 
     void main()
     {
@@ -47,6 +50,7 @@ void LineRenderer::onSetup()
       gl_Position = projection * vec4(position, 0.0, 1.0);
 
       color = instanceData.color;
+      display = instanceData.display;
     }
   )";
 
@@ -54,10 +58,16 @@ void LineRenderer::onSetup()
     #version 460 core
 
     in vec4 color;
+    in flat int display;
     out vec4 FragColor;
 
     void main()
     {
+      if(display > 0)
+      {
+        discard;
+      }
+
       FragColor = color;
     }
   )";

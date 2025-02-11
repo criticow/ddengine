@@ -9,6 +9,8 @@ struct LineInstanceData
   glm::vec2 start;   // 8 bytes
   glm::vec2 end;     // 8 bytes
   glm::vec4 color;   // 16 bytes
+  int display;
+  int padding[3];
 };
 
 class LineRenderer : public Renderer<LineInstanceData>
