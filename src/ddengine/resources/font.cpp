@@ -22,7 +22,7 @@ Font::Font(FontCreateInfo fontCreateInfo)
   // Calculate atlas dimensions
   int atlasWidth = 0;
   int atlasHeight = 0;
-  int padding = 3;
+  int padding = 2;
 
   for (unsigned char c = 32; c < 128; c++)
   {

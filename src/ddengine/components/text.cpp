@@ -131,6 +131,7 @@ void Text::setup()
     {
       auto instanceIndex = this->instances.at(i);
       auto &data = Engine::quadRenderer.instancesData.at(instanceIndex);
+      
       data.display = QID_DISPLAY_DISABLED;
     }
   }

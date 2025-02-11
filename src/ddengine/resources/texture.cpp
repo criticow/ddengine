@@ -4,15 +4,15 @@
 
 const int MAX_TEXTURES = 16;
 
-int Texture::index = 0;
+int Texture::indexCount = 0;
 
 Texture::Texture(TextureCreateInfo textureCreateInfo)
 {
   ASSERT(index < MAX_TEXTURES, "Reached max amount of textures. Amount: {}", MAX_TEXTURES);
 
-  this->index = index;
+  this->index = indexCount;
 
-  index++;
+  indexCount++;
 
   if(textureCreateInfo.buffer)
   {
@@ -67,7 +67,6 @@ void Texture::fromFile(TextureCreateInfo textureCreateInfo)
   glBindTexture(GL_TEXTURE_2D, 0);
 
   stbi_image_free(data);
-
 }
 
 void Texture::fromBuffer(TextureCreateInfo textureCreateInfo)

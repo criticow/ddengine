@@ -17,7 +17,7 @@ class Texture
   GLuint handle;
   int width;
   int height;
-  static int index;
+  int index;
 
   Texture(){};
   Texture(TextureCreateInfo textureCreateInfo);
@@ -25,6 +25,7 @@ class Texture
   void bind();
   void destroy();
   private:
+  static int indexCount;
   void fromFile(TextureCreateInfo textureCreateInfo);
   void fromBuffer(TextureCreateInfo textureCreateInfo);
 };
