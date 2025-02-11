@@ -103,7 +103,7 @@ float Font::getTextWidth(const std::string &value)
   {
     auto c = value.at(i);
     Character character = this->characters[c];
-    width += character.width + 1.0f;
+    width += c == ' ' ? this->maxAdvance : character.width + 1.0f;
   }
 
   return width;
