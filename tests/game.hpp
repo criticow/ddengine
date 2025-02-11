@@ -23,8 +23,6 @@ class Game : public Engine
       .pixelated = true
     }));
 
-    LOGGER_DEBUG(font);
-
     auto font2 = resourceManager.addResource<Font>("dogica_font_16", Font(FontCreateInfo{
       .name = "dogica_16",
       .path = "c:/dev/ddengine/examples/data/fonts/dogica.ttf",
@@ -32,16 +30,12 @@ class Game : public Engine
       .pixelated = true
     }));
 
-    LOGGER_DEBUG(font2);
-
     auto font3 = resourceManager.addResource<Font>("dogica_font_64", Font(FontCreateInfo{
       .name = "dogica_64",
       .path = "c:/dev/ddengine/examples/data/fonts/arial.ttf",
       .size = 64,
       .pixelated = true
     }));
-
-    LOGGER_DEBUG(font3);
 
     Text t1 = Text(TextCreateInfo{
       .font = font,

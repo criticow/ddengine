@@ -78,7 +78,7 @@ void Text::setup()
     .texture = font->texture,
     .color = this->color,
     .isText = true,
-    .display = QID_DISPLAY_ENABLED,
+    .display = this->display,
   });
 
   Transform transform;
