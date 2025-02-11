@@ -29,10 +29,4 @@ class QuadRenderer : public Renderer<QuadInstanceData>
   QuadRenderer();
   void onSetup() override;
   void onRender(glm::mat4 projection) override;
-
-  int addInstance(QuadInstanceData data);
-
-  private:
-  Shader *shader = nullptr;
-  std::vector<int> unusedIndexes;
 };

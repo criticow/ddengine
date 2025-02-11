@@ -9,8 +9,9 @@ struct LineInstanceData
   glm::vec2 start;   // 8 bytes
   glm::vec2 end;     // 8 bytes
   glm::vec4 color;   // 16 bytes
-  int display;
-  int padding[3];
+  int layer;
+  InstanceState state;
+  int padding[2];
 };
 
 class LineRenderer : public Renderer<LineInstanceData>
@@ -19,5 +20,4 @@ class LineRenderer : public Renderer<LineInstanceData>
   LineRenderer();
   void onSetup() override;
   void onRender(glm::mat4 projection) override;
-  Shader *shader = nullptr;
 };

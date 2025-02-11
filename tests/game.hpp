@@ -44,7 +44,7 @@ class Game : public Engine
   // This method is called in the end of the main setup
   void onSetup() override
   {
-    glm::vec2 size(8.0f, 8.0f);
+    glm::vec2 size(80.0f, 80.0f);
     float x = window.resolutionWidth * 0.5f - size.x * 0.5f;
     float y = window.resolutionHeight * 0.5f - size.y * 0.5f;
 
@@ -53,10 +53,10 @@ class Game : public Engine
       .position = glm::vec2(x, y),
       .size = size,
       .rotation = 0.0f,
-      .layer = 2
+      .layer = 1
     });
 
-    auto sprite = Sprite{SpriteCreateInfo{.color = glm::vec4(1.0f)}};
+    auto sprite = Sprite{SpriteCreateInfo{.color = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)}};
 
     e = new SpriteEntity(transform, sprite);
 
@@ -69,12 +69,25 @@ class Game : public Engine
         .layer = 1
       }},
       Sprite{SpriteCreateInfo{
-        .color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)
+        .color = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)
       }}
     );
 
-    lineRenderer.instancesData.emplace_back(glm::vec2(window.resolutionWidth * 0.5f, 0.0f), glm::vec2(window.resolutionWidth * 0.5f, window.resolutionHeight), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
-    lineRenderer.instancesData.emplace_back(glm::vec2(0.0f, window.resolutionHeight * 0.5f), glm::vec2(window.resolutionWidth, window.resolutionHeight * 0.5f), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f));
+    Line line(LineCreateInfo{
+      .start = glm::vec2(window.resolutionWidth * 0.5f, 0.0f),
+      .end = glm::vec2(window.resolutionWidth * 0.5f, window.resolutionHeight),
+      .color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
+      .layer = 0,
+      .state = InstanceState::ENABLED
+    });
+
+    Line line2(LineCreateInfo{
+      .start = glm::vec2(0.0f, window.resolutionHeight * 0.5f),
+      .end = glm::vec2(window.resolutionWidth, window.resolutionHeight * 0.5f),
+      .color = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f),
+      .layer = 0,
+      .state = InstanceState::ENABLED
+    });
   };
 
   void onRender() override

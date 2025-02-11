@@ -31,8 +31,9 @@ void LineRenderer::onSetup()
       vec2 start;
       vec2 end;
       vec4 color;
-      int display;
-      int padding[3];
+      int layer;
+      int state;
+      int padding[2];
     };
 
     layout (std430, binding = 0) buffer InstancesBuffer {
@@ -40,17 +41,17 @@ void LineRenderer::onSetup()
     };
 
     out vec4 color;
-    out flat int display;
+    out flat int state;
 
     void main()
     {
       InstanceData instanceData = instancesData[gl_InstanceID];
 
       vec2 position = mix(instanceData.start, instanceData.end, yIndex);
-      gl_Position = projection * vec4(position, 0.0, 1.0);
+      gl_Position = projection * vec4(position, instanceData.layer / 10.0, 1.0);
 
       color = instanceData.color;
-      display = instanceData.display;
+      state = instanceData.state;
     }
   )";
 
@@ -58,12 +59,12 @@ void LineRenderer::onSetup()
     #version 460 core
 
     in vec4 color;
-    in flat int display;
+    in flat int state;
     out vec4 FragColor;
 
     void main()
     {
-      if(display > 0)
+      if(state > 0)
       {
         discard;
       }

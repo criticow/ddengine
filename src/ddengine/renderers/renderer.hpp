@@ -5,6 +5,13 @@
 #include <ddengine/resources/shader.hpp>
 #include <ddengine/resources/resource_manager.hpp>
 
+enum InstanceState
+{
+  ENABLED,
+  DISABLED,
+  DELETED
+};
+
 /*
   Should set size, stride, drawMode, vertices and indice on the drived constructor
 */
@@ -16,6 +23,8 @@ class Renderer
 
   void render(glm::mat4 projection);
   void setup();
+  int addInstance(T data);
+  void removeInstance(int index);
 
   virtual void onSetup(){};
   virtual void onRender(glm::mat4 projection){};
@@ -25,6 +34,8 @@ class Renderer
   protected:
   std::vector<float> vertices;
   std::vector<GLuint> indices;
+  std::vector<int> unusedIndexes;
+  Shader *shader = nullptr;
   GLuint VAO;
   GLuint VBO;
   GLuint EBO;
@@ -59,6 +70,35 @@ inline void Renderer<T>::setup()
 
   // Call the derived setup function
   this->onSetup();
+}
+
+template <typename T>
+inline int Renderer<T>::addInstance(T data)
+{
+  int index;
+
+  if(!this->unusedIndexes.empty())
+  {
+    index = this->unusedIndexes[0];
+    this->unusedIndexes.erase(this->unusedIndexes.begin());
+    return index;
+  }
+
+  this->instancesData.push_back(data);
+  index = static_cast<int>(this->instancesData.size() -1);
+
+  return index;
+}
+
+template <typename T>
+inline void Renderer<T>::removeInstance(int index)
+{
+  if(this->instancesData.size() -1 < index)
+  {
+    return;
+  }
+
+  this->unusedIndexes.push_back(index);
 }
 
 template <typename T>

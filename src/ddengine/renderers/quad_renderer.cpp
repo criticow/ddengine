@@ -147,19 +147,3 @@ void QuadRenderer::onRender(glm::mat4 projection)
     texture.bind();
   }
 }
-int QuadRenderer::addInstance(QuadInstanceData data)
-{
-  int index;
-
-  if(!this->unusedIndexes.empty())
-  {
-    index = this->unusedIndexes[0];
-    this->unusedIndexes.erase(this->unusedIndexes.begin());
-    return index;
-  }
-
-  this->instancesData.push_back(data);
-  index = static_cast<int>(this->instancesData.size() -1);
-
-  return index;
-};
