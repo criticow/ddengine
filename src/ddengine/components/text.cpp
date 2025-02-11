@@ -71,12 +71,12 @@ void Text::setup()
     .texture = font->texture,
     .color = this->color,
     .isText = true,
-    // .layer = this->layer,
     .display = QID_DISPLAY_ENABLED,
   });
 
   Transform transform;
   transform.parentTransform = this->parentTransform;
+  transform.layer = this->layer;
 
   for(auto c : value)
   {
@@ -111,17 +111,7 @@ void Text::setup()
       character.height
     );
 
-    data.model = transform.getModel();
-    data.layer = transform.layer;
-    data.isText = sprite.isText;
-    data.textureID = sprite.texture->index;
-    data.color = sprite.color;
-    data.strokeColor = sprite.color;
-    data.display = sprite.display;
-
-    auto texCoords = sprite.getTexCoords();
-    data.texCoords1 = texCoords.first;
-    data.texCoords2 = texCoords.second;
+    data = sprite.getInstanceData(transform);
 
     offsetX += character.width + 1.0f;
     index++;
