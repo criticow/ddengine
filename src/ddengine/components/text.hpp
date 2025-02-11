@@ -34,9 +34,12 @@ class Text
 
   void setValue(const std::string &value);
   void setPosition(const glm::vec2 &position);
+  void setColor(const glm::vec4 &color);
+  void update();
 
   private:
   std::vector<int> instances;
+  bool isChanged;
 
   void setup();
 };

@@ -19,19 +19,47 @@ Text::Text(TextCreateInfo textCreateInfo)
 
 void Text::setValue(const std::string &value)
 {
-  // Exit if the value hasnt changed
-  if(this->value == value) return;
+  if(this->value == value)
+  {
+    return;
+  }
 
   this->value = value;
-
-  this->setup();
+  this->isChanged = true;
 }
 
 void Text::setPosition(const glm::vec2 &position)
 {
-  if(this->position == position) return;
+  if(this->position == position)
+  {
+    return;
+  }
 
   this->position = position;
+  this->isChanged = true;
+}
+
+void Text::setColor(const glm::vec4 &color)
+{
+  if(this->color == color)
+  {
+    return;
+  }
+
+  this->color = color;
+  this->isChanged = true;
+}
+
+void Text::update()
+{
+  if(!this->isChanged)
+  {
+    return;
+  }
+
+  this->isChanged = false;
+
+  this->setup();
 }
 
 void Text::setup()
