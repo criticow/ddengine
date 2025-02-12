@@ -37,6 +37,7 @@ class Window
   void close();
   void setUserPointer();
   void setTitle(const std::string &title);
+  void setIcon(const std::string &folder);
   void updateViewport();
 
   static void glDebugOutput(GLenum src, GLenum type, GLuint id, GLenum severity, GLsizei len, const char *msg, const void *usrParam);
