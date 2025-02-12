@@ -19,7 +19,14 @@
 #include <random>
 #include <iomanip>
 
+#include <Windows.h>
+
+#if defined(NDEBUG)
+  #define WIN32_LEAN_AND_MEAN
+  #undef APIENTRY
+#endif
 #define GLFW_INCLUDE_NONE
+
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 

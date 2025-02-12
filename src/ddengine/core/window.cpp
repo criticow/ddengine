@@ -131,7 +131,7 @@ void Window::updateViewport()
   {
     this->isFramebufferUpdated = false;
 
-    auto dimensions = getViewportDimensions(width, height, resolutionWidth, resolutionHeight);
+    auto dimensions = static_cast<glm::ivec4>(getViewportDimensions(width, height, resolutionWidth, resolutionHeight));
 
     // Set the OpenGL viewport
     glViewport(dimensions.x, dimensions.y, dimensions.z, dimensions.w);
