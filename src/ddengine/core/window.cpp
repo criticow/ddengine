@@ -136,7 +136,7 @@ void Window::setIcon(const std::string &folder)
   }
 
   // Set the window icon
-  glfwSetWindowIcon(this->handle, images.size(), icons.data());
+  glfwSetWindowIcon(this->handle, static_cast<int>(images.size()), icons.data());
 
   for(auto &icon : icons)
   {
