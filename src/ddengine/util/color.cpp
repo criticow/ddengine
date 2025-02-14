@@ -1,4 +1,4 @@
-#include "color.hpp"
+#include <ddengine/util/color.hpp>
 
 Color::Color(unsigned int r, unsigned int g, unsigned int b) : Color(r, g, b, 255) {};
 

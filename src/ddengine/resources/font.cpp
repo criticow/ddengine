@@ -1,4 +1,4 @@
-#include "font.hpp"
+#include <ddengine/resources/font.hpp>
 
 #include <ddengine/core/engine.hpp>
 

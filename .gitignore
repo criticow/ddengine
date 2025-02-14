@@ -1,4 +1,4 @@
 build
 # Generetad automatically
-src/ddengine/ddengine.hpp
-src/ddengine/**/_*.hpp
+include/ddengine/ddengine.hpp
+include/ddengine/**/_*.hpp

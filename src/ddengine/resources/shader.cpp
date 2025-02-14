@@ -1,4 +1,4 @@
-#include "shader.hpp"
+#include <ddengine/resources/shader.hpp>
 
 Shader::Shader(const char *vShaderData, const char *fShaderData)
 {

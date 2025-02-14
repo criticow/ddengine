@@ -1,4 +1,4 @@
-#include "window.hpp"
+#include <ddengine/core/window.hpp>
 #include <stb_image.h>
 
 std::mutex Window::framebufferMutex;

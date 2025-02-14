@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const src = path.join(__dirname, "../src/ddengine");
+const src = path.join(__dirname, "../include/ddengine");
 const pchName = "ddenginepch.hpp";
 
 let mainContent =

@@ -1,4 +1,5 @@
-#include "texture.hpp"
+#include <ddengine/resources/texture.hpp>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
