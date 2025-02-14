@@ -42,7 +42,7 @@ void QuadRenderer::onSetup()
       int textureID;
       int isText;
       int layer;
-      int display; // 0 enabled, 1 disabled, 2 deleted
+      int state; // 0 enabled, 1 disabled, 2 deleted
     };
 
     layout (std430, binding = 0) buffer InstancesBuffer {
@@ -56,16 +56,16 @@ void QuadRenderer::onSetup()
       vec4 color;
       vec4 strokeColor;
       flat int isText;
-      flat int display;
+      flat int state;
     } vs_out;
 
     void main()
     {
       InstanceData instanceData = instancesData[gl_InstanceID];
-      vs_out.display = instanceData.display;
+      vs_out.state = instanceData.state;
 
       // Dont render this instance
-      if(instanceData.display > 0)
+      if(instanceData.state > 0)
       {
         return;
       }
@@ -98,12 +98,12 @@ void QuadRenderer::onSetup()
       vec4 color;
       vec4 strokeColor;
       flat int isText;
-      flat int display;
+      flat int state;
     } fs_in;
 
     void main()
     {
-      if(fs_in.display > 0)
+      if(fs_in.state > 0)
       {
         discard;
       }

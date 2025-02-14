@@ -10,7 +10,7 @@ Sprite::Sprite(SpriteCreateInfo spriteCreateInfo)
   this->flipX = spriteCreateInfo.flipX;
   this->flipY = spriteCreateInfo.flipY;
   this->isText = spriteCreateInfo.isText;
-  this->display = spriteCreateInfo.display;
+  this->state = spriteCreateInfo.state;
 }
 
 Sprite::Sprite(const Sprite &other)
@@ -21,7 +21,7 @@ Sprite::Sprite(const Sprite &other)
   this->flipX = other.flipX;
   this->flipY = other.flipY;
   this->isText = other.isText;
-  this->display = other.display;
+  this->state = other.state;
 }
 
 QuadInstanceData Sprite::getInstanceData(Transform &transform)
@@ -31,7 +31,7 @@ QuadInstanceData Sprite::getInstanceData(Transform &transform)
     .color = this->color,
     .textureID = this->texture ? this->texture->index : -1,
     .isText = this->isText,
-    .display = this->display,
+    .state = this->state,
   };
 
   if(this->texture)

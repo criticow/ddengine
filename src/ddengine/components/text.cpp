@@ -11,7 +11,7 @@ Text::Text(TextCreateInfo textCreateInfo)
   this->rotation = textCreateInfo.rotation;
   this->color = textCreateInfo.color;
   this->layer = textCreateInfo.layer;
-  this->display = textCreateInfo.display;
+  this->state = textCreateInfo.state;
 
   instances.reserve(value.length());
 
@@ -51,9 +51,9 @@ void Text::setColor(const glm::vec4 &color)
   this->isChanged = true;
 }
 
-void Text::setDisplay(int display)
+void Text::setState(InstanceState state)
 {
-  this->display = display;
+  this->state = state;
   this->isChanged = true;
 }
 
@@ -78,7 +78,7 @@ void Text::setup()
     .texture = font->texture,
     .color = this->color,
     .isText = true,
-    .display = this->display,
+    .state = this->state,
   });
 
   Transform transform;
@@ -132,7 +132,7 @@ void Text::setup()
       auto instanceIndex = this->instances.at(i);
       auto &data = Engine::quadRenderer.instancesData.at(instanceIndex);
       
-      data.display = QID_DISPLAY_DISABLED;
+      data.state = InstanceState::DISABLED;
     }
   }
 }

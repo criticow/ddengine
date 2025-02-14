@@ -13,7 +13,7 @@ struct SpriteCreateInfo
   bool flipX = false;
   bool flipY = false;
   bool isText = false;
-  int display = QID_DISPLAY_ENABLED;
+  InstanceState state;
 };
 
 class Sprite
@@ -25,7 +25,7 @@ class Sprite
   bool flipX;
   bool flipY;
   bool isText;
-  int display;
+  InstanceState state;
 
   Sprite();
   Sprite(SpriteCreateInfo spriteCreateInfo);

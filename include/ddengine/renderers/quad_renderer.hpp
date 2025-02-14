@@ -4,11 +4,6 @@
 
 #include <ddengine/renderers/renderer.hpp>
 
-// QID - QuadInstanceData
-#define QID_DISPLAY_ENABLED 0
-#define QID_DISPLAY_DISABLED 1
-#define QID_DISPLAY_DELETED 2
-
 struct QuadInstanceData
 {
   // C++ and shader usage
@@ -20,7 +15,7 @@ struct QuadInstanceData
   int textureID;          // 4 bytes
   int isText;             // 4 bytes
   int layer;              // 4 bytes
-  int display;            // 4 bytes
+  InstanceState state;    // 4 bytes
 };
 
 class QuadRenderer : public Renderer<QuadInstanceData>
