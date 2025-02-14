@@ -2,6 +2,11 @@
 
 #include <ddengine/ddengine.hpp>
 
+Sprite2D *s = nullptr;
+float rotation = 0.0f;
+float flipX = false;
+float flipY = false;
+
 class Game : public Engine
 {
   public:
@@ -11,51 +16,49 @@ class Game : public Engine
   // This method is called in the end of the main update
   void onUpdate() override
   {
+    float speed = 400.0f;
+    glm::vec2 velocity(0.0f);
+
+    if(input.held(ACTION_LEFT))
+    {
+      velocity.x -= speed * tempo.deltaTime;
+    }
+
+    if(input.held(ACTION_RIGHT))
+    {
+      velocity.x += speed * tempo.deltaTime;
+    }
+
+    if(input.held(ACTION_ACCEPT))
+    {
+      rotation += 5.0f;
+    }
+
+    if(input.pressed(KEY_1))
+    {
+      flipX = !flipX;
+    }
+
+    if(input.pressed(KEY_2))
+    {
+      flipY = !flipY;
+    }
+
+    s->flip(flipX, flipY);
+    s->setRotation(rotation);
+    s->move(velocity);
+    s->update();
   };
 
   // This method is called in the end of the main setup
   void onSetup() override
   {
-    auto font = resourceManager.addResource<Font>("dogica_font", Font(FontCreateInfo{
-      .name = "dogica",
-      .path = "c:/dev/ddengine/examples/data/fonts/comic.ttf",
-      .size = 48,
-      .pixelated = true
-    }));
-
-    auto font2 = resourceManager.addResource<Font>("dogica_font_16", Font(FontCreateInfo{
-      .name = "dogica_16",
-      .path = "c:/dev/ddengine/examples/data/fonts/dogica.ttf",
-      .size = 160,
-      .pixelated = true
-    }));
-
-    auto font3 = resourceManager.addResource<Font>("dogica_font_64", Font(FontCreateInfo{
-      .name = "dogica_64",
-      .path = "c:/dev/ddengine/examples/data/fonts/arial.ttf",
-      .size = 64,
-      .pixelated = true
-    }));
-
-    Text t1 = Text(TextCreateInfo{
-      .font = font,
-      .value = "Test",
-      .position = glm::vec2(0.0f),
-      .color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-    });
-
-    Text t2 = Text(TextCreateInfo{
-      .font = font2,
-      .value = "Test 2",
-      .position = glm::vec2(100.0f),
-      .color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-    });
-
-    Text t3 = Text(TextCreateInfo{
-      .font = font3,
-      .value = "Test 3",
-      .position = glm::vec2(200.0f),
-      .color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
+    auto texture = resourceManager.addResource<Texture>("cadet", TextureCreateInfo{.path = "c:/dev/ddengine/data/textures/cadet.png"});
+    s = new Sprite2D(Sprite2DCreateInfo{
+      .texture = texture,
+      .size = glm::vec2(128.0f),
+      .dimensions = glm::vec4(0.0f, 0.0f, 32.0f, 32.0f),
+      .state = InstanceState::ENABLED,
     });
   };
 

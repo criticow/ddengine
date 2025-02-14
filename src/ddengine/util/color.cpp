@@ -11,6 +11,14 @@ Color::Color(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
   this->a = a / 255.0f;
 };
 
+Color::Color(unsigned int rgba)
+{
+  this->r = rgba / 255.0f;
+  this->g = rgba / 255.0f;
+  this->b = rgba / 255.0f;
+  this->a = rgba / 255.0f;
+}
+
 Color::Color(std::string hexColor)
 {
   // Check if the string matches the hex colors format

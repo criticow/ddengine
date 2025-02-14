@@ -39,10 +39,7 @@ void Texture::destroy()
 void Texture::fromFile(TextureCreateInfo textureCreateInfo)
 {
   auto path = textureCreateInfo.path;
-  this->width = textureCreateInfo.width;
-  this->height = textureCreateInfo.height;
 
-  
   glGenTextures(1, &this->handle);
   glBindTexture(GL_TEXTURE_2D, this->handle);
 

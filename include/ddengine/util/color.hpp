@@ -8,5 +8,6 @@ class Color : public glm::vec4
   Color(){};
   Color(unsigned int r, unsigned int g, unsigned int b);
   Color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+  Color(unsigned int rgba);
   Color(std::string hexColor);
 };
