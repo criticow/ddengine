@@ -1,4 +1,4 @@
-#include <ddengine/entities/aminated_sprite_2d.hpp>
+#include "aminated_sprite_2d.hpp"
 
 #include <ddengine/core/engine.hpp>
 

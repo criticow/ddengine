@@ -1,4 +1,4 @@
-#include <ddengine/renderers/quad_renderer.hpp>
+#include "quad_renderer.hpp"
 
 #include <ddengine/core/engine.hpp>
 

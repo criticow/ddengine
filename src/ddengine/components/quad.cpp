@@ -1,4 +1,4 @@
-#include <ddengine/components/quad.hpp>
+#include "quad.hpp"
 
 Quad::Quad(): Quad(QuadCreateInfo{}) {};
 

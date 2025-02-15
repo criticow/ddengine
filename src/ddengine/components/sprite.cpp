@@ -1,4 +1,4 @@
-#include <ddengine/components/sprite.hpp>
+#include "sprite.hpp"
 
 Sprite::Sprite(): Sprite(SpriteCreateInfo{}) {};
 

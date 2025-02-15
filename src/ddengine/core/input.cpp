@@ -1,4 +1,4 @@
-#include <ddengine/core/input.hpp>
+#include "input.hpp"
 
 Input::Input()
 {

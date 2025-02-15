@@ -1,4 +1,4 @@
-#include <ddengine/core/temporizer.hpp>
+#include "temporizer.hpp"
 
 Temporizer::Temporizer()
 {

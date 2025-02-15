@@ -1,4 +1,4 @@
-#include <ddengine/entities/sprite_2d.hpp>
+#include "sprite_2d.hpp"
 
 #include <ddengine/core/engine.hpp>
 

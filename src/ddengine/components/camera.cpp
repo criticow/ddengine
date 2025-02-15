@@ -1,4 +1,4 @@
-#include <ddengine/components/camera.hpp>
+#include "camera.hpp"
 
 Camera::Camera(glm::vec2 position, float rotation)
 {

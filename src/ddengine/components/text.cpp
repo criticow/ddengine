@@ -1,4 +1,4 @@
-#include <ddengine/components/text.hpp>
+#include "text.hpp"
 
 #include <ddengine/core/engine.hpp>
 
