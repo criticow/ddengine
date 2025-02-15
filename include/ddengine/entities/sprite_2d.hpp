@@ -32,9 +32,9 @@ class Sprite2D
 
   void setPosition(const glm::vec2 &position);
   void setRotation(float rotation);
-  void update();
+  virtual void update();
 
-  private:
+  protected:
   bool changed;
   unsigned int instanceIndex;
   Transform transform;
