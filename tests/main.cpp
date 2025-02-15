@@ -1,4 +1,3 @@
-#include <ddengine/util/logger.hpp>
 #include "game.hpp"
 
 int main()
