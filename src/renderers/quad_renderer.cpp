@@ -127,7 +127,13 @@ void QuadRenderer::onSetup()
         return;
       }
 
-      FragColor = texture(textures[fs_in.textureID], fs_in.texCoords);
+      vec4 sampled = texture(textures[fs_in.textureID], fs_in.texCoords);
+      if(sampled.a < 0.01)
+      {
+        discard;
+      }
+
+      FragColor = sampled;
     }
   )";
 
