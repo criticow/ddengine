@@ -37,7 +37,9 @@ glm::mat4 Transform::getModel()
 
   glm::mat4 model = parentModel;
 
-  model = glm::translate(model, glm::vec3(this->position, this->layer / 10.0f));
+  float adjustedZ = (this->layer / 10.0f) + (this->position.y * 0.0001f);
+
+  model = glm::translate(model, glm::vec3(this->position, adjustedZ));
 
   model = glm::translate(model, glm::vec3(0.5 * this->size.x, 0.5 * this->size.y, 0.0f));
   model = glm::rotate(model, glm::radians(this->rotation), glm::vec3(0.0f, 0.0f, 1.0f));

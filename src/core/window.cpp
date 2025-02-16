@@ -75,7 +75,7 @@ void Window::loadGL()
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   glEnable(GL_DEPTH_TEST);
-  glDepthFunc(GL_LESS);
+  glDepthFunc(GL_LEQUAL);
 
   int flags;
   glGetIntegerv(GL_CONTEXT_FLAGS, &flags);

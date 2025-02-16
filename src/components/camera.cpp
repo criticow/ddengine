@@ -13,8 +13,8 @@ void Camera::update(int resolutionWidth, int resolutionHeight)
     static_cast<float>(resolutionWidth),
     static_cast<float>(resolutionHeight),
     0.0f,
-    -1.0f,
-    1.0f
+    -10.0f,
+    10.0f
   );
 
   this->view = glm::translate(glm::mat4(1.0f), -glm::vec3(this->position, 0.0f));
