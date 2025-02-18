@@ -19,4 +19,6 @@ target_include_directories(ddengine PUBLIC
   $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/include>
   $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/deps/glm>
   $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/deps/stb>
+  $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/deps/tinyxml2>
+  $<BUILD_INTERFACE:${DDENGINE_ROOT_DIR}/deps/rapidjson/include>
 )

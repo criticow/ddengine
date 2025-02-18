@@ -40,6 +40,7 @@ set(FT_DISABLE_HARFBUZZ ON)
 add_subdirectory(deps/glfw)
 add_subdirectory(deps/glad)
 add_subdirectory(deps/freetype)
+add_subdirectory(deps/tinyxml2)
 
 # Script to generate general output header files
 execute_process(COMMAND node ${CMAKE_CURRENT_LIST_DIR}/scripts/headers.js)

@@ -34,3 +34,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "util/logger.hpp"
+
+#include <tinyxml2.h>
+#include <rapidjson/rapidjson.h>
