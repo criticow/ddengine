@@ -74,7 +74,7 @@ void Text::setup()
   float offsetX = this->position.x;
   int index = 0;
 
-  Sprite sprite(SpriteCreateInfo{
+  Quad quad(QuadCreateInfo{
     .texture = font->texture,
     .color = this->color,
     .isText = true,
@@ -111,14 +111,14 @@ void Text::setup()
     transform.size = glm::vec2(character.width, character.height);
     transform.rotation = this->rotation;
 
-    sprite.dimensions = glm::vec4(
+    quad.dimensions = glm::vec4(
       character.xOffset,
       character.yOffset,
       character.width,
       character.height
     );
 
-    data = sprite.getInstanceData(transform);
+    data = quad.getData(transform);
 
     offsetX += character.width + 1.0f;
     index++;

@@ -4,8 +4,8 @@
 
 Line::Line(LineCreateInfo createInfo)
 {
-  this->position = createInfo.position;
-  this->length = createInfo.length;
+  this->start = createInfo.start;
+  this->end = createInfo.end;
   this->color = createInfo.color;
   this->layer = createInfo.layer;
   this->state = createInfo.state;
@@ -13,25 +13,25 @@ Line::Line(LineCreateInfo createInfo)
   this->instanceIndex = Engine::lineRenderer.addInstance(this->generateData());
 }
 
-void Line::setPosition(const glm::vec2 &position)
+void Line::setStart(const glm::vec2 &start)
 {
-  if(this->position == position)
+  if(this->start == start)
   {
     return;
   }
 
-  this->position = position;
+  this->start = start;
   this->changed = true;
 }
 
-void Line::setLength(const glm::vec2 &length)
+void Line::setEnd(const glm::vec2 &end)
 {
-  if(this->length == length)
+  if(this->end == end)
   {
     return;
   }
 
-  this->length = length;
+  this->end = end;
   this->changed = true;
 }
 
@@ -82,8 +82,8 @@ void Line::update()
 LineInstanceData Line::generateData()
 {
   return LineInstanceData{
-    .start = this->position,
-    .end = glm::vec2(this->position + this->length),
+    .start = this->start,
+    .end = this->end,
     .color = this->color,
     .layer = this->layer,
     .state = this->state

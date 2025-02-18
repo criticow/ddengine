@@ -4,7 +4,7 @@
 
 #include "../resources/font.hpp"
 #include "../renderers/quad_renderer.hpp"
-#include "sprite.hpp"
+#include "quad.hpp"
 #include "transform.hpp"
 
 struct TextCreateInfo

@@ -5,8 +5,8 @@
 
 struct LineCreateInfo
 {
-  glm::vec2 position = glm::vec2(0.0f);
-  glm::vec2 length = glm::vec2(0.0f);
+  glm::vec2 start = glm::vec2(0.0f);
+  glm::vec2 end = glm::vec2(0.0f);
   glm::vec4 color = glm::vec4(0.0f);
   int layer = 0;
   InstanceState state = InstanceState::ENABLED;
@@ -23,16 +23,16 @@ class Line
   Line(void) = default;
   Line(LineCreateInfo createInfo);
 
-  void setPosition(const glm::vec2 &position);
-  void setLength(const glm::vec2 &length);
+  void setStart(const glm::vec2 &start);
+  void setEnd(const glm::vec2 &end);
   void setColor(const glm::vec4 &color);
   void setState(InstanceState state);
   void setLayer(int layer);
   void update();
 
   private:
-  glm::vec2 position;
-  glm::vec2 length;
+  glm::vec2 start;
+  glm::vec2 end;
   glm::vec4 color;
   int layer;
   InstanceState state;
