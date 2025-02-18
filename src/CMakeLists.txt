@@ -11,6 +11,7 @@ target_precompile_headers(ddengine PRIVATE ddenginepch.hpp)
 target_link_libraries(${PROJECT_NAME} PUBLIC
   glad
   glfw
+  tinyxml2
   freetype
 )
 
