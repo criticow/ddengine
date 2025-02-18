@@ -11,6 +11,8 @@ let mainContent =
 #include "../../../src/ddenginepch.hpp"
 `;
 
+fs.mkdirSync(includePath, {recursive: true});
+
 fs.readdir(src, {withFileTypes: true}, (err, entries) => {
   let ddengineContent = mainContent;
 
@@ -31,11 +33,11 @@ fs.readdir(src, {withFileTypes: true}, (err, entries) => {
         if(subEntry.isDirectory() || !subEntry.name.endsWith(".hpp")) return;
 
         headerContent += `\n#include "../../../src/${entry.name}/${subEntry.name}"`;
-      })
+      });
 
       try{
         fs.writeFileSync(path.join(includePath, entry.name + ".hpp"), headerContent);
-        ddengineContent += `\n#include "${entry.name}.hpp"`
+        ddengineContent += `\n#include "${entry.name}.hpp"`;
       }catch(error){
         console.log("Error creating file: " + entry.name + ".hpp");
       }
