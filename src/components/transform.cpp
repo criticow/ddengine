@@ -37,7 +37,9 @@ glm::mat4 Transform::getModel()
 
   glm::mat4 model = parentModel;
 
-  float adjustedZ = (this->layer / 10.0f) + (this->position.y * 0.0001f);
+  // Make the sprites lower on the window appear at front if the layers are the same
+  // Camera must be [-10, 10]
+  float adjustedZ = (this->layer / 10.0f) + ((this->position.y + this->size.y) * 0.0001f);
 
   model = glm::translate(model, glm::vec3(this->position, adjustedZ));
 
