@@ -82,3 +82,15 @@ void Sprite2D::flip(bool flipX, bool flipY)
   this->quad.flipY = flipY;
   this->changed = true;
 }
+
+void Sprite2D::hide()
+{
+  this->quad.state = InstanceState::DISABLED;
+  this->changed = true;
+}
+
+void Sprite2D::show()
+{
+  this->quad.state = InstanceState::ENABLED;
+  this->changed = true;
+}

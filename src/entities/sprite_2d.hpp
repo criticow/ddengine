@@ -30,6 +30,8 @@ class Sprite2D
   void move(const glm::vec2 &velocity);
   void flip(bool flipX, bool flipY);
 
+  void hide();
+  void show();
   void setPosition(const glm::vec2 &position);
   void setRotation(float rotation);
   virtual void update();
