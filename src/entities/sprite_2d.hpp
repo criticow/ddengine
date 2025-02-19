@@ -34,6 +34,7 @@ class Sprite2D
   void show();
   void setPosition(const glm::vec2 &position);
   void setRotation(float rotation);
+  void setColor(const Color &color);
   virtual void update();
 
   protected:

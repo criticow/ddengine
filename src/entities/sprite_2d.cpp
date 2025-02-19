@@ -71,6 +71,17 @@ void Sprite2D::setRotation(float rotation)
   this->changed = true;
 }
 
+void Sprite2D::setColor(const Color &color)
+{
+  if(this->quad.color == color)
+  {
+    return;
+  }
+
+  this->quad.color = color;
+  this->changed = true;
+}
+
 void Sprite2D::flip(bool flipX, bool flipY)
 {
   if(this->quad.flipX == flipX && this->quad.flipY == flipY)
