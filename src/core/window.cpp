@@ -4,12 +4,12 @@
 std::mutex Window::framebufferMutex;
 std::mutex Window::cursorPosMutex;
 
-Window::Window(int width, int height, int resolutionWidth, int resolutionHeight, const char *title)
+Window::Window(WindowCreateInfo createInfo)
 {
-  this->width = width;
-  this->height = height;
-  this->resolutionWidth = resolutionWidth;
-  this->resolutionHeight = resolutionHeight;
+  this->width = createInfo.width;
+  this->height = createInfo.height;
+  this->resolutionWidth = createInfo.resolutionWidth;
+  this->resolutionHeight = createInfo.resolutionHeight;
 
   ASSERT(glfwInit(), "Could not initialize GLFW");
 
@@ -17,15 +17,30 @@ Window::Window(int width, int height, int resolutionWidth, int resolutionHeight,
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+  if(!createInfo.resizable)
+  {
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  }
+
   #ifndef NDEBUG
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
   #endif
 
-  this->handle = glfwCreateWindow(width, height, title, nullptr, nullptr);
+  this->handle = glfwCreateWindow(width, height, createInfo.title, nullptr, nullptr);
   ASSERT(this->handle, "Could not create GLFW window");
 
   LOGGER_DEBUG("Created Window");
 
+  this->center();
+
+  glfwSetWindowAspectRatio(this->handle, 16, 9);
+
+  glfwSetFramebufferSizeCallback(this->handle, this->framebufferSizeCallback);
+  glfwSetCursorPosCallback(this->handle, cursorPosCallback);
+}
+
+void Window::center()
+{
   // Center the window on the primary monitor
   GLFWmonitor *primaryMonitor = glfwGetPrimaryMonitor();
   int offsetX, offsetY, windowWidth, windowHeight;
@@ -36,11 +51,6 @@ Window::Window(int width, int height, int resolutionWidth, int resolutionHeight,
   glfwSetWindowPos(this->handle, offsetX + (mode->width - windowWidth) / 2, offsetY + (mode->height - windowHeight) / 2);
 
   LOGGER_DEBUG("Centered Window");
-
-  glfwSetWindowAspectRatio(this->handle, 16, 9);
-
-  glfwSetFramebufferSizeCallback(this->handle, this->framebufferSizeCallback);
-  glfwSetCursorPosCallback(this->handle, cursorPosCallback);
 }
 
 bool Window::isOpen()
@@ -71,6 +81,10 @@ void Window::loadGL()
 
   ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Could not load OpenGL");
 
+  this->isGLLoaded = true;
+
+  LOGGER_DEBUG("Loaded OpenGL: {}.{}", GLVersion.major, GLVersion.minor);
+
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -87,10 +101,6 @@ void Window::loadGL()
     glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
     LOGGER_DEBUG("Set OpenGL Debugger");
   }
-
-  this->isGLLoaded = true;
-
-  LOGGER_DEBUG("Loaded OpenGL: {}.{}", GLVersion.major, GLVersion.minor);
 }
 
 void Window::setColor(float r, float g, float b, float a)

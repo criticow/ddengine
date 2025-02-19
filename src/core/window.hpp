@@ -13,6 +13,15 @@ struct Mouse
   float lastY = -1.0f;
 };
 
+struct WindowCreateInfo
+{
+  int width = 1280;
+  int height = 720;
+  int resolutionWidth = 1280;
+  int resolutionHeight = 720;
+  const char *title = "DDEngine";
+  bool resizable = false;
+};
 
 class Window
 {
@@ -24,9 +33,10 @@ class Window
   GLFWwindow *handle = nullptr;
   Mouse mouse;
 
-  Window(){};
-  Window(int width, int height, int resolutionWidth, int resolutionHeight, const char *title);
+  Window(void) = default;
+  Window(WindowCreateInfo createInfo);
 
+  void center();
   bool isOpen();
   void swapBuffers();
   void loadGL();

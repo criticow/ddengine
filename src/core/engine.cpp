@@ -10,7 +10,13 @@ Camera Engine::camera;
 
 Engine::Engine(int width, int height, int resWidth, int resHeight, const char *title)
 {
-  this->window = Window(width, height, resWidth, resHeight, title);
+  this->window = Window(WindowCreateInfo{
+    .width = width,
+    .height = height,
+    .resolutionWidth = resWidth,
+    .resolutionHeight = resHeight,
+    .title = title
+  });
   this->window.setUserPointer();
 }
 
