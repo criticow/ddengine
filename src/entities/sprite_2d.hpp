@@ -24,6 +24,9 @@ struct Sprite2DCreateInfo
 class Sprite2D
 {
   public:
+  Transform transform;
+  Quad quad;
+
   Sprite2D(void) = default;
   Sprite2D(Sprite2DCreateInfo createInfo);
 
@@ -41,6 +44,4 @@ class Sprite2D
   protected:
   bool changed;
   unsigned int instanceIndex;
-  Transform transform;
-  Quad quad;
 };
