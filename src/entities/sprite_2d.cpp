@@ -60,6 +60,17 @@ void Sprite2D::setPosition(const glm::vec2 &position)
   this->changed = true;
 }
 
+void Sprite2D::setSize(const glm::vec2 &size)
+{
+  if(this->transform.size == size)
+  {
+    return;
+  }
+
+  this->transform.size = size;
+  this->changed = true;
+}
+
 void Sprite2D::setRotation(float rotation)
 {
   if(this->transform.rotation == rotation)
